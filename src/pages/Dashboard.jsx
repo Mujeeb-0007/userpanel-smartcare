@@ -4,47 +4,60 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useAuth } from "../context/AuthContext";
 
+const actionCards = [
+  {
+    icon: (
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+        <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>
+      </svg>
+    ),
+    title: "My Appointments", desc: "View and manage your upcoming appointments", btn: "View Appointments", path: "/book-appointment", color: "#2193b0",
+  },
+  {
+    icon: (
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+      </svg>
+    ),
+    title: "My Profile", desc: "Update your personal information", btn: "Edit Profile", path: "/profile", color: "#2193b0",
+  },
+  {
+    icon: (
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#27ae60" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <path d="M9 22V12h6v10"/><path d="M12 7v1"/><circle cx="12" cy="11" r="1" fill="#27ae60"/>
+        <line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="18" x2="15" y2="18"/>
+      </svg>
+    ),
+    title: "Book Appointment", desc: "Schedule a new appointment with our specialists", btn: "Book Now", path: "/book-appointment", color: "#27ae60",
+  },
+  {
+    icon: (
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.44 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.64a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+    ),
+    title: "Contact Us", desc: "Get in touch with our support team", btn: "Contact", path: "/contact", color: "#2193b0",
+  },
+];
+
 const features = [
   {
-    icon: (
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2a5 5 0 1 0 5 5A5 5 0 0 0 12 2zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7H10a7 7 0 0 0-7 7v1" />
-        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-      </svg>
-    ),
-    title: "AI in Care",
-    desc: "Clinically proven AI-driven tools for faster, more accurate diagnoses and outcomes that patients trust.",
+    icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M9 9l2 2 4-4"/><path d="M8 21h8M12 17v4"/></svg>,
+    title: "AI in Care", desc: "Clinically proven AI-driven tools for faster, more accurate diagnoses.",
   },
   {
-    icon: (
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-      </svg>
-    ),
-    title: "Expert Team",
-    desc: "Our doctors work hand-in-hand with advanced digital platforms, ensuring you receive the highest standard of care.",
+    icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+    title: "Expert Team", desc: "Our doctors work with advanced digital platforms for the highest standard of care.",
   },
   {
-    icon: (
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <polyline points="12 6 12 12 16 14" />
-      </svg>
-    ),
-    title: "Smart and Timely Services",
-    desc: "Smart appointment scheduling and virtual triage minimize waiting times and get you to the right care — fast.",
+    icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
+    title: "Smart & Timely", desc: "Smart scheduling and virtual triage minimize waiting times.",
   },
   {
-    icon: (
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-      </svg>
-    ),
-    title: "Tech-Enabled and Patience Centered",
-    desc: "From telemedicine to in-home visits, we use intelligent health systems to bring care to you, tailored to your needs and lifestyle.",
+    icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>,
+    title: "Patient-Centered", desc: "From telemedicine to in-home visits, care tailored to your needs.",
   },
 ];
 
@@ -53,69 +66,100 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   return (
-    <div style={{ fontFamily: "'Poppins', sans-serif" }}>
+    <div style={{ fontFamily: "'Poppins',sans-serif" }}>
+      <style>{`
+        .db-page { background:#f5f6fa; min-height:calc(100vh - 70px); padding:40px 0; }
+        .db-wrap { max-width:1100px; margin:0 auto; padding:0 30px; }
+        .db-title { font-size:26px; font-weight:700; color:#1a1a2e; margin-bottom:6px; font-family:'Poppins',sans-serif; }
+        .db-sub { font-size:15px; color:#888; margin-bottom:32px; font-family:'Poppins',sans-serif; }
+
+        .db-cards { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-bottom:40px; }
+        .db-card { background:#fff; border-radius:14px; padding:24px 20px; box-shadow:0 2px 10px rgba(0,0,0,0.06); text-align:center; transition:transform 0.3s,box-shadow 0.3s; display:flex; flex-direction:column; align-items:center; }
+        .db-card:hover { transform:translateY(-6px); box-shadow:0 12px 30px rgba(0,0,0,0.12); }
+        .db-card-icon { width:68px; height:68px; background:#f0f8ff; border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:14px; }
+        .db-card-title { font-size:15px; font-weight:600; color:#1a1a2e; margin-bottom:8px; font-family:'Poppins',sans-serif; }
+        .db-card-desc { font-size:13px; color:#888; margin-bottom:16px; line-height:1.6; font-family:'Poppins',sans-serif; flex:1; }
+        .db-card-btn { padding:10px 20px; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:500; cursor:pointer; font-family:'Poppins',sans-serif; width:100%; }
+
+        .db-why-title { font-size:20px; font-weight:700; color:#1a1a2e; margin-bottom:18px; font-family:'Poppins',sans-serif; }
+        .db-features { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:36px; }
+        .db-feat { background:#fff; border-radius:12px; padding:22px; text-align:center; border:1px solid #eee; transition:border-color 0.2s,transform 0.2s; }
+        .db-feat:hover { border-color:#2193b0; transform:translateY(-4px); }
+        .db-feat-icon { display:flex; justify-content:center; margin-bottom:12px; }
+        .db-feat-title { font-size:14px; font-weight:600; color:#1a1a2e; margin-bottom:8px; font-family:'Poppins',sans-serif; }
+        .db-feat-desc { font-size:12px; color:#888; line-height:1.6; font-family:'Poppins',sans-serif; }
+
+        .db-info-box { background:#fff; border-radius:12px; padding:28px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+        .db-info-title { font-size:17px; font-weight:600; color:#1a1a2e; margin-bottom:20px; font-family:'Poppins',sans-serif; }
+        .db-info-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+        .db-info-item { background:#f8fafc; border-radius:8px; padding:14px; }
+        .db-info-label { display:block; font-size:11px; color:#aaa; font-weight:600; margin-bottom:4px; text-transform:uppercase; font-family:'Poppins',sans-serif; }
+        .db-info-val { font-size:14px; color:#333; font-weight:500; font-family:'Poppins',sans-serif; word-break:break-all; }
+
+        @media (max-width:1024px) {
+          .db-cards { grid-template-columns:repeat(2,1fr); }
+          .db-features { grid-template-columns:repeat(2,1fr); }
+          .db-info-grid { grid-template-columns:repeat(3,1fr); }
+        }
+        @media (max-width:600px) {
+          .db-wrap { padding:0 16px; }
+          .db-page { padding:24px 0; }
+          .db-title { font-size:20px; }
+          .db-cards { grid-template-columns:1fr 1fr; gap:12px; }
+          .db-card { padding:16px 12px; }
+          .db-card-icon { width:54px; height:54px; }
+          .db-card-desc { display:none; }
+          .db-features { grid-template-columns:1fr 1fr; gap:12px; }
+          .db-info-grid { grid-template-columns:1fr 1fr; }
+        }
+      `}</style>
+
       <Navbar />
-      <div style={styles.page}>
-        <div style={styles.container}>
-          <h2 style={styles.title}>Welcome, {userData?.name || "User"}! 👋</h2>
-          <p style={styles.subtitle}>Manage your health information and appointments</p>
+      <div className="db-page">
+        <div className="db-wrap">
+          <h2 className="db-title">Welcome, {userData?.name || "User"}! 👋</h2>
+          <p className="db-sub">Manage your health information and appointments</p>
 
           {/* Action Cards */}
-          <div style={styles.cardsGrid}>
-            {[
-              { icon: "📅", title: "My Appointments", desc: "View and manage your upcoming appointments", btn: "View Appointments", path: "/book-appointment", color: "#2193b0" },
-              { icon: "👤", title: "My Profile", desc: "Update your personal information", btn: "Edit Profile", path: "/profile", color: "#2193b0" },
-              { icon: "🏥", title: "Book Appointment", desc: "Schedule a new appointment with our specialists", btn: "Book Now", path: "/book-appointment", color: "#27ae60" },
-              { icon: "📞", title: "Contact Us", desc: "Get in touch with our support team", btn: "Contact", path: "/contact", color: "#2193b0" },
-            ].map((card, i) => (
-              <div key={i} style={styles.card}
-                onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-6px)"; e.currentTarget.style.boxShadow = "0 12px 30px rgba(0,0,0,0.12)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)"; }}
-              >
-                <div style={styles.cardIcon}>{card.icon}</div>
-                <h3 style={styles.cardTitle}>{card.title}</h3>
-                <p style={styles.cardDesc}>{card.desc}</p>
-                <button
-                  style={{ ...styles.cardBtn, backgroundColor: card.color }}
-                  onClick={() => navigate(card.path)}
-                >
+          <div className="db-cards">
+            {actionCards.map((card, i) => (
+              <div key={i} className="db-card">
+                <div className="db-card-icon">{card.icon}</div>
+                <h3 className="db-card-title">{card.title}</h3>
+                <p className="db-card-desc">{card.desc}</p>
+                <button className="db-card-btn" style={{ background: card.color }} onClick={() => navigate(card.path)}>
                   {card.btn}
                 </button>
               </div>
             ))}
           </div>
 
-          {/* Why Choose Section */}
-          <div style={styles.whySection}>
-            <h3 style={styles.whyTitle}>Why Smart Care?</h3>
-            <div style={styles.featuresRow}>
-              {features.map((f, i) => (
-                <div key={i} style={styles.featureCard}
-                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#2193b0"; e.currentTarget.style.transform = "translateY(-4px)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#eee"; e.currentTarget.style.transform = "translateY(0)"; }}
-                >
-                  <div style={styles.featureIcon}>{f.icon}</div>
-                  <h4 style={styles.featureTitle}>{f.title}</h4>
-                  <p style={styles.featureDesc}>{f.desc}</p>
-                </div>
-              ))}
-            </div>
+          {/* Why Smart Care */}
+          <h3 className="db-why-title">Why Smart Care?</h3>
+          <div className="db-features">
+            {features.map((f, i) => (
+              <div key={i} className="db-feat">
+                <div className="db-feat-icon">{f.icon}</div>
+                <h4 className="db-feat-title">{f.title}</h4>
+                <p className="db-feat-desc">{f.desc}</p>
+              </div>
+            ))}
           </div>
 
-          {/* User Info */}
-          <div style={styles.infoBox}>
-            <h3 style={styles.infoTitle}>Account Information</h3>
-            <div style={styles.infoGrid}>
+          {/* Account Info */}
+          <div className="db-info-box">
+            <h3 className="db-info-title">Account Information</h3>
+            <div className="db-info-grid">
               {[
-                { label: "Name", value: userData?.fullName || userData?.name || "—" },
-                { label: "Email", value: userData?.email || "—" },
-                { label: "Gender", value: userData?.gender || "—" },
-                { label: "ID Type", value: userData?.idType || "—" },
+                { label: "Name",         value: userData?.fullName || userData?.name || "—" },
+                { label: "Email",        value: userData?.email || "—" },
+                { label: "Gender",       value: userData?.gender || "—" },
+                { label: "ID Type",      value: userData?.idType || "—" },
                 { label: "Member Since", value: userData?.date || "—" },
               ].map((item, i) => (
-                <div key={i} style={styles.infoItem}>
-                  <span style={styles.infoLabel}>{item.label}</span>
-                  <span style={styles.infoValue}>{item.value}</span>
+                <div key={i} className="db-info-item">
+                  <span className="db-info-label">{item.label}</span>
+                  <span className="db-info-val">{item.value}</span>
                 </div>
               ))}
             </div>
@@ -126,29 +170,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
-const styles = {
-  page: { backgroundColor: "#f5f6fa", minHeight: "calc(100vh - 70px)", padding: "40px 0" },
-  container: { maxWidth: "1100px", margin: "0 auto", padding: "0 30px" },
-  title: { fontSize: "26px", fontWeight: "700", color: "#1a1a2e", marginBottom: "8px", fontFamily: "'Poppins', sans-serif" },
-  subtitle: { fontSize: "15px", color: "#888", marginBottom: "36px", fontFamily: "'Poppins', sans-serif" },
-  cardsGrid: { display: "flex", gap: "20px", flexWrap: "wrap", marginBottom: "40px" },
-  card: { flex: 1, minWidth: "220px", backgroundColor: "#fff", borderRadius: "12px", padding: "24px", boxShadow: "0 2px 8px rgba(0,0,0,0.06)", textAlign: "center", transition: "transform 0.3s ease, box-shadow 0.3s ease" },
-  cardIcon: { fontSize: "36px", marginBottom: "12px" },
-  cardTitle: { fontSize: "16px", fontWeight: "600", color: "#1a1a2e", marginBottom: "8px", fontFamily: "'Poppins', sans-serif" },
-  cardDesc: { fontSize: "13px", color: "#888", marginBottom: "16px", lineHeight: 1.6, fontFamily: "'Poppins', sans-serif" },
-  cardBtn: { padding: "10px 20px", color: "#fff", border: "none", borderRadius: "8px", fontSize: "13px", fontWeight: "500", cursor: "pointer", fontFamily: "'Poppins', sans-serif" },
-  whySection: { marginBottom: "36px" },
-  whyTitle: { fontSize: "20px", fontWeight: "700", color: "#1a1a2e", marginBottom: "20px", fontFamily: "'Poppins', sans-serif" },
-  featuresRow: { display: "flex", gap: "16px", flexWrap: "wrap" },
-  featureCard: { flex: 1, minWidth: "200px", backgroundColor: "#fff", borderRadius: "12px", padding: "24px", textAlign: "center", border: "1px solid #eee", transition: "border-color 0.2s, transform 0.2s" },
-  featureIcon: { display: "flex", justifyContent: "center", marginBottom: "14px" },
-  featureTitle: { fontSize: "14px", fontWeight: "600", color: "#1a1a2e", marginBottom: "8px", fontFamily: "'Poppins', sans-serif" },
-  featureDesc: { fontSize: "12px", color: "#888", lineHeight: 1.6, fontFamily: "'Poppins', sans-serif" },
-  infoBox: { backgroundColor: "#fff", borderRadius: "12px", padding: "28px", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" },
-  infoTitle: { fontSize: "17px", fontWeight: "600", color: "#1a1a2e", marginBottom: "20px", fontFamily: "'Poppins', sans-serif" },
-  infoGrid: { display: "flex", flexWrap: "wrap", gap: "16px" },
-  infoItem: { flex: 1, minWidth: "180px", backgroundColor: "#f8fafc", borderRadius: "8px", padding: "14px" },
-  infoLabel: { display: "block", fontSize: "11px", color: "#aaa", fontWeight: "600", marginBottom: "4px", textTransform: "uppercase", fontFamily: "'Poppins', sans-serif" },
-  infoValue: { fontSize: "14px", color: "#333", fontWeight: "500", fontFamily: "'Poppins', sans-serif" },
-};

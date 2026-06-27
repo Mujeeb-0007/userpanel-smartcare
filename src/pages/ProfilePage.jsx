@@ -13,146 +13,124 @@ export default function ProfilePage() {
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
-    name: userData?.name || "",
+    name:     userData?.name     || "",
     lastName: userData?.lastName || "",
-    gender: userData?.gender || "",
-    idType: userData?.idType || "",
-    email: userData?.email || "",
-    phone: userData?.phone || "",
+    gender:   userData?.gender   || "",
+    idType:   userData?.idType   || "",
+    email:    userData?.email    || "",
+    phone:    userData?.phone    || "",
   });
 
   const handleSave = async () => {
     setSaving(true);
     try {
       await updateDoc(doc(db, "users", user.uid), {
-        name: formData.name,
-        lastName: formData.lastName,
+        name: formData.name, lastName: formData.lastName,
         fullName: `${formData.name} ${formData.lastName}`,
-        gender: formData.gender,
-        idType: formData.idType,
-        phone: formData.phone,
+        gender: formData.gender, idType: formData.idType, phone: formData.phone,
       });
-      setSuccess(true);
-      setEditing(false);
+      setSuccess(true); setEditing(false);
       setTimeout(() => setSuccess(false), 3000);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setSaving(false);
-    }
+    } catch (err) { console.error(err); }
+    finally { setSaving(false); }
   };
 
   return (
-    <div style={{ fontFamily: "'Poppins', sans-serif" }}>
-      <Navbar />
-      <div style={styles.page}>
-        <div style={styles.container}>
+    <div style={{ fontFamily:"'Poppins',sans-serif" }}>
+      <style>{`
+        .pf-page { background:#f5f6fa; min-height:calc(100vh - 70px); padding:40px 0; }
+        .pf-wrap { max-width:800px; margin:0 auto; padding:0 30px; }
+        .pf-header { display:flex; align-items:center; gap:16px; margin-bottom:28px; }
+        .pf-back-btn { background:none; border:none; font-size:15px; cursor:pointer; color:#2193b0; font-family:'Poppins',sans-serif; font-weight:500; padding:0; }
+        .pf-title { font-size:24px; font-weight:700; color:#1a1a2e; margin:0; font-family:'Poppins',sans-serif; }
+        .pf-success { background:#d4edda; color:#155724; padding:12px 16px; border-radius:8px; font-size:14px; margin-bottom:20px; font-family:'Poppins',sans-serif; }
+        .pf-card { background:#fff; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.08); }
+        .pf-avatar-row { display:flex; align-items:center; gap:20px; margin-bottom:24px; }
+        .pf-avatar { width:72px; height:72px; background:#2193b0; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:28px; flex-shrink:0; font-family:'Poppins',sans-serif; }
+        .pf-user-name { font-size:20px; font-weight:700; color:#1a1a2e; margin:0 0 6px; font-family:'Poppins',sans-serif; }
+        .pf-role-badge { background:#e8f4fb; color:#2193b0; padding:4px 14px; border-radius:20px; font-size:12px; font-weight:600; font-family:'Poppins',sans-serif; }
+        .pf-divider { border:none; border-top:1px solid #f0f0f0; margin:20px 0; }
+        .pf-info-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:28px; }
+        .pf-info-item { background:#f8fafc; border-radius:10px; padding:16px; }
+        .pf-info-label { display:block; font-size:11px; font-weight:600; color:#aaa; text-transform:uppercase; margin-bottom:6px; font-family:'Poppins',sans-serif; }
+        .pf-info-value { font-size:15px; color:#333; font-weight:500; margin:0; font-family:'Poppins',sans-serif; }
+        .pf-input { width:100%; padding:9px 12px; border:1.5px solid #2193b0; border-radius:6px; font-size:14px; box-sizing:border-box; outline:none; font-family:'Poppins',sans-serif; }
+        .pf-btn-row { display:flex; gap:12px; justify-content:flex-end; flex-wrap:wrap; }
+        .pf-edit-btn { padding:11px 28px; background:#2193b0; color:#fff; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; }
+        .pf-save-btn { padding:11px 28px; background:#27ae60; color:#fff; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; }
+        .pf-cancel-btn { padding:11px 28px; background:#f0f0f0; color:#555; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; }
 
-          {/* Header */}
-          <div style={styles.header}>
-            <button style={styles.backBtn} onClick={() => navigate("/dashboard")}>← Back</button>
-            <h2 style={styles.title}>My Profile</h2>
+        @media (max-width:600px) {
+          .pf-wrap { padding:0 16px; }
+          .pf-page { padding:24px 0; }
+          .pf-card { padding:20px 16px; }
+          .pf-title { font-size:19px; }
+          .pf-info-grid { grid-template-columns:1fr; }
+          .pf-avatar { width:56px; height:56px; font-size:22px; }
+          .pf-user-name { font-size:17px; }
+          .pf-btn-row { justify-content:stretch; }
+          .pf-edit-btn, .pf-save-btn, .pf-cancel-btn { flex:1; }
+        }
+      `}</style>
+
+      <Navbar />
+      <div className="pf-page">
+        <div className="pf-wrap">
+          <div className="pf-header">
+            <button className="pf-back-btn" onClick={() => navigate("/dashboard")}>← Back</button>
+            <h2 className="pf-title">My Profile</h2>
           </div>
 
-          {success && <div style={styles.successMsg}>✅ Profile updated successfully!</div>}
+          {success && <div className="pf-success">✅ Profile updated successfully!</div>}
 
-          {/* Profile Card */}
-          <div style={styles.card}>
-            {/* Avatar */}
-            <div style={styles.avatarSection}>
-              <div style={styles.avatar}>
-                {userData?.name?.charAt(0).toUpperCase() || "U"}
-              </div>
+          <div className="pf-card">
+            <div className="pf-avatar-row">
+              <div className="pf-avatar">{userData?.name?.charAt(0).toUpperCase() || "U"}</div>
               <div>
-                <h3 style={styles.userName}>{userData?.fullName || userData?.name || "User"}</h3>
-                <span style={styles.roleBadge}>Patient</span>
+                <h3 className="pf-user-name">{userData?.fullName || userData?.name || "User"}</h3>
+                <span className="pf-role-badge">Patient</span>
               </div>
             </div>
 
-            <hr style={styles.divider} />
+            <hr className="pf-divider"/>
 
-            {/* Info Grid */}
-            <div style={styles.infoGrid}>
-              <div style={styles.infoItem}>
-                <label style={styles.infoLabel}>First Name</label>
-                {editing ? (
-                  <input style={styles.input} value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
-                ) : (
-                  <p style={styles.infoValue}>{userData?.name || "—"}</p>
-                )}
-              </div>
-              <div style={styles.infoItem}>
-                <label style={styles.infoLabel}>Last Name</label>
-                {editing ? (
-                  <input style={styles.input} value={formData.lastName}
-                    onChange={(e) => setFormData({ ...formData, lastName: e.target.value })} />
-                ) : (
-                  <p style={styles.infoValue}>{userData?.lastName || "—"}</p>
-                )}
-              </div>
-              <div style={styles.infoItem}>
-                <label style={styles.infoLabel}>Email</label>
-                <p style={styles.infoValue}>{userData?.email || "—"}</p>
-              </div>
-              <div style={styles.infoItem}>
-                <label style={styles.infoLabel}>Phone</label>
-                {editing ? (
-                  <input style={styles.input} value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
-                ) : (
-                  <p style={styles.infoValue}>{userData?.phone || "—"}</p>
-                )}
-              </div>
-              <div style={styles.infoItem}>
-                <label style={styles.infoLabel}>Gender</label>
-                {editing ? (
-                  <select style={styles.input} value={formData.gender}
-                    onChange={(e) => setFormData({ ...formData, gender: e.target.value })}>
-                    <option value="">Select</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                  </select>
-                ) : (
-                  <p style={styles.infoValue}>{userData?.gender || "—"}</p>
-                )}
-              </div>
-              <div style={styles.infoItem}>
-                <label style={styles.infoLabel}>ID Type</label>
-                {editing ? (
-                  <select style={styles.input} value={formData.idType}
-                    onChange={(e) => setFormData({ ...formData, idType: e.target.value })}>
-                    <option value="">Select</option>
-                    <option value="passport">Passport</option>
-                    <option value="emirates_id">Emirates ID</option>
-                    <option value="national_id">National ID</option>
-                  </select>
-                ) : (
-                  <p style={styles.infoValue}>{userData?.idType || "—"}</p>
-                )}
-              </div>
-              <div style={styles.infoItem}>
-                <label style={styles.infoLabel}>Member Since</label>
-                <p style={styles.infoValue}>{userData?.date || "—"}</p>
-              </div>
-              <div style={styles.infoItem}>
-                <label style={styles.infoLabel}>Account Role</label>
-                <p style={styles.infoValue}>Patient</p>
-              </div>
+            <div className="pf-info-grid">
+              {[
+                { label:"First Name",   field:"name",     type:"text",   placeholder:"First name" },
+                { label:"Last Name",    field:"lastName", type:"text",   placeholder:"Last name" },
+                { label:"Email",        field:"email",    type:"text",   readonly:true },
+                { label:"Phone",        field:"phone",    type:"tel",    placeholder:"+971 XX XXX XXXX" },
+                { label:"Gender",       field:"gender",   type:"select", options:[{v:"male",l:"Male"},{v:"female",l:"Female"},{v:"other",l:"Other"}] },
+                { label:"ID Type",      field:"idType",   type:"select", options:[{v:"passport",l:"Passport"},{v:"emirates_id",l:"Emirates ID"},{v:"national_id",l:"National ID"}] },
+                { label:"Member Since", field:"date",     readonly:true, staticVal: userData?.date || "—" },
+                { label:"Account Role", field:"role",     readonly:true, staticVal:"Patient" },
+              ].map((item, i) => (
+                <div key={i} className="pf-info-item">
+                  <label className="pf-info-label">{item.label}</label>
+                  {editing && !item.readonly ? (
+                    item.type === "select" ? (
+                      <select className="pf-input" value={formData[item.field]} onChange={(e) => setFormData({ ...formData, [item.field]: e.target.value })}>
+                        <option value="">Select</option>
+                        {item.options.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
+                      </select>
+                    ) : (
+                      <input className="pf-input" type={item.type} placeholder={item.placeholder} value={formData[item.field]} onChange={(e) => setFormData({ ...formData, [item.field]: e.target.value })}/>
+                    )
+                  ) : (
+                    <p className="pf-info-value">{item.staticVal || userData?.[item.field] || formData[item.field] || "—"}</p>
+                  )}
+                </div>
+              ))}
             </div>
 
-            {/* Buttons */}
-            <div style={styles.btnRow}>
+            <div className="pf-btn-row">
               {editing ? (
                 <>
-                  <button style={styles.cancelBtn} onClick={() => setEditing(false)}>Cancel</button>
-                  <button style={styles.saveBtn} onClick={handleSave} disabled={saving}>
-                    {saving ? "Saving..." : "Save Changes"}
-                  </button>
+                  <button className="pf-cancel-btn" onClick={() => setEditing(false)}>Cancel</button>
+                  <button className="pf-save-btn" onClick={handleSave} disabled={saving}>{saving ? "Saving..." : "Save Changes"}</button>
                 </>
               ) : (
-                <button style={styles.editBtn} onClick={() => setEditing(true)}>Edit Profile</button>
+                <button className="pf-edit-btn" onClick={() => setEditing(true)}>Edit Profile</button>
               )}
             </div>
           </div>
@@ -162,27 +140,3 @@ export default function ProfilePage() {
     </div>
   );
 }
-
-const styles = {
-  page: { backgroundColor: "#f5f6fa", minHeight: "calc(100vh - 70px)", padding: "40px 0" },
-  container: { maxWidth: "800px", margin: "0 auto", padding: "0 30px" },
-  header: { display: "flex", alignItems: "center", gap: "16px", marginBottom: "28px" },
-  backBtn: { background: "none", border: "none", fontSize: "16px", cursor: "pointer", color: "#2193b0", fontFamily: "'Poppins', sans-serif", fontWeight: "500" },
-  title: { fontSize: "24px", fontWeight: "700", color: "#1a1a2e", margin: 0, fontFamily: "'Poppins', sans-serif" },
-  successMsg: { backgroundColor: "#d4edda", color: "#155724", padding: "12px 16px", borderRadius: "8px", fontSize: "14px", marginBottom: "20px", fontFamily: "'Poppins', sans-serif" },
-  card: { backgroundColor: "#fff", borderRadius: "16px", padding: "32px", boxShadow: "0 4px 20px rgba(0,0,0,0.08)" },
-  avatarSection: { display: "flex", alignItems: "center", gap: "20px", marginBottom: "24px" },
-  avatar: { width: "72px", height: "72px", backgroundColor: "#2193b0", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: "700", fontSize: "28px", fontFamily: "'Poppins', sans-serif" },
-  userName: { fontSize: "20px", fontWeight: "700", color: "#1a1a2e", margin: "0 0 6px 0", fontFamily: "'Poppins', sans-serif" },
-  roleBadge: { backgroundColor: "#e8f4fb", color: "#2193b0", padding: "4px 14px", borderRadius: "20px", fontSize: "12px", fontWeight: "600", fontFamily: "'Poppins', sans-serif" },
-  divider: { border: "none", borderTop: "1px solid #f0f0f0", margin: "20px 0" },
-  infoGrid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", marginBottom: "28px" },
-  infoItem: { backgroundColor: "#f8fafc", borderRadius: "10px", padding: "16px" },
-  infoLabel: { display: "block", fontSize: "11px", fontWeight: "600", color: "#aaa", textTransform: "uppercase", marginBottom: "6px", fontFamily: "'Poppins', sans-serif" },
-  infoValue: { fontSize: "15px", color: "#333", fontWeight: "500", margin: 0, fontFamily: "'Poppins', sans-serif" },
-  input: { width: "100%", padding: "8px 12px", border: "1.5px solid #2193b0", borderRadius: "6px", fontSize: "14px", boxSizing: "border-box", outline: "none", fontFamily: "'Poppins', sans-serif" },
-  btnRow: { display: "flex", gap: "12px", justifyContent: "flex-end" },
-  editBtn: { padding: "11px 28px", backgroundColor: "#2193b0", color: "#fff", border: "none", borderRadius: "8px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "'Poppins', sans-serif" },
-  saveBtn: { padding: "11px 28px", backgroundColor: "#27ae60", color: "#fff", border: "none", borderRadius: "8px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "'Poppins', sans-serif" },
-  cancelBtn: { padding: "11px 28px", backgroundColor: "#f0f0f0", color: "#555", border: "none", borderRadius: "8px", fontSize: "14px", fontWeight: "600", cursor: "pointer", fontFamily: "'Poppins', sans-serif" },
-};
