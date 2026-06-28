@@ -50,7 +50,6 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handler);
   }, [mobileMenuOpen]);
 
-  // Body scroll lock when mobile menu open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -96,27 +95,29 @@ export default function Navbar() {
   return (
     <>
       <style>{`
-        * { box-sizing: border-box; }
+        .nb-reset, .nb-reset * { box-sizing: border-box; }
 
         .nb {
           display: flex;
           align-items: center;
           justify-content: space-between;
           padding: 12px 48px;
-          background: #fff;
+          background: #ffffff;
           box-shadow: 0 2px 10px rgba(0,0,0,0.08);
           position: sticky;
           top: 0;
           z-index: 1000;
           width: 100%;
-          overflow: hidden;
+          overflow: visible;
         }
+
         .nb-logo {
           display: flex;
           align-items: center;
           gap: 10px;
           cursor: pointer;
           flex-shrink: 0;
+          text-decoration: none;
         }
         .nb-logo-icon {
           width: 40px;
@@ -127,11 +128,13 @@ export default function Navbar() {
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
+          background: #ffffff;
         }
         .nb-logo-text {
           font-weight: 700;
           font-size: 14px;
           font-family: 'Poppins', sans-serif;
+          line-height: 1.2;
         }
         .nb-logo-sub {
           font-size: 9px;
@@ -140,7 +143,6 @@ export default function Navbar() {
           font-family: 'Poppins', sans-serif;
         }
 
-        /* Desktop links */
         .nb-links {
           display: flex;
           gap: 24px;
@@ -148,62 +150,80 @@ export default function Navbar() {
         }
         .nb-link {
           font-size: 14px;
-          color: #555;
+          color: #555555;
           cursor: pointer;
           font-family: 'Poppins', sans-serif;
           font-weight: 500;
           padding: 4px 0;
           border-bottom: 2px solid transparent;
-          transition: all 0.2s;
+          transition: color 0.2s, border-color 0.2s;
           white-space: nowrap;
           user-select: none;
+          background: none;
+          text-decoration: none;
         }
         .nb-link:hover { color: #2193b0; }
-        .nb-link-active { color: #2193b0; border-bottom: 2px solid #2193b0; }
+        .nb-link-active { color: #2193b0 !important; border-bottom: 2px solid #2193b0; }
 
-        .nb-book-wrap { position: relative; }
+        /* Book Appointment Dropdown */
+        .nb-book-wrap {
+          position: relative;
+        }
         .nb-book-dropdown {
-          position: absolute;
-          top: calc(100% + 8px);
-          left: 50%;
-          transform: translateX(-50%);
-          background: #fff;
-          border-radius: 10px;
-          box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-          min-width: 180px;
-          overflow: hidden;
-          z-index: 200;
-          border: 1px solid #eee;
+          position: absolute !important;
+          top: calc(100% + 10px) !important;
+          left: 50% !important;
+          transform: translateX(-50%) !important;
+          background: #ffffff !important;
+          border-radius: 10px !important;
+          box-shadow: 0 8px 28px rgba(0,0,0,0.14) !important;
+          min-width: 190px !important;
+          overflow: hidden !important;
+          z-index: 99999 !important;
+          border: 1px solid #e8e8e8 !important;
+          padding: 4px 0 !important;
         }
         .nb-book-item {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 12px 16px;
-          font-size: 14px;
-          color: #444;
-          font-family: 'Poppins', sans-serif;
-          cursor: pointer;
-          border-bottom: 1px solid #f5f5f5;
-          transition: background 0.15s;
+          display: flex !important;
+          align-items: center !important;
+          gap: 10px !important;
+          padding: 12px 16px !important;
+          font-size: 14px !important;
+          color: #333333 !important;
+          font-family: 'Poppins', sans-serif !important;
+          cursor: pointer !important;
+          border-bottom: 1px solid #f0f0f0 !important;
+          transition: background 0.15s !important;
+          background: #ffffff !important;
+          text-decoration: none !important;
         }
-        .nb-book-item:last-child { border-bottom: none; }
-        .nb-book-item:hover { background: #f0f8ff; }
+        .nb-book-item:last-child { border-bottom: none !important; }
+        .nb-book-item:hover {
+          background: #f0f8ff !important;
+          color: #2193b0 !important;
+        }
         .nb-drop-icon {
-          width: 30px;
-          height: 30px;
-          background: #eef6fb;
-          border-radius: 6px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
+          width: 32px !important;
+          height: 32px !important;
+          background: #eef6fb !important;
+          border-radius: 6px !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          flex-shrink: 0 !important;
+        }
+        .nb-book-item-label {
+          font-size: 13px;
+          font-family: 'Poppins', sans-serif;
+          color: inherit;
+          font-weight: 500;
         }
 
+        /* Login Button */
         .nb-login-btn {
           padding: 9px 20px;
           background: #2193b0;
-          color: #fff;
+          color: #ffffff;
           border: none;
           border-radius: 8px;
           font-size: 13px;
@@ -216,6 +236,7 @@ export default function Navbar() {
         }
         .nb-login-btn:hover { background: #1a7a9a; }
 
+        /* User Box */
         .nb-user-box {
           display: flex;
           align-items: center;
@@ -232,7 +253,7 @@ export default function Navbar() {
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #fff;
+          color: #ffffff;
           font-weight: 600;
           font-size: 14px;
           flex-shrink: 0;
@@ -240,37 +261,39 @@ export default function Navbar() {
         .nb-user-name {
           font-size: 13px;
           font-weight: 500;
-          color: #333;
+          color: #333333;
           font-family: 'Poppins', sans-serif;
         }
         .nb-user-dropdown {
           position: absolute;
           top: 46px;
           right: 0;
-          background: #fff;
+          background: #ffffff !important;
           border-radius: 10px;
-          box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-          min-width: 165px;
+          box-shadow: 0 8px 28px rgba(0,0,0,0.14);
+          min-width: 168px;
           overflow: hidden;
-          z-index: 200;
-          border: 1px solid #eee;
+          z-index: 99999;
+          border: 1px solid #e8e8e8;
+          padding: 4px 0;
         }
         .nb-drop-item {
           padding: 11px 16px;
           font-size: 13px;
-          color: #444;
+          color: #333333 !important;
           font-family: 'Poppins', sans-serif;
           cursor: pointer;
-          border-bottom: 1px solid #f5f5f5;
+          border-bottom: 1px solid #f0f0f0;
           transition: background 0.15s;
           display: flex;
           align-items: center;
           gap: 10px;
+          background: #ffffff !important;
         }
         .nb-drop-item:last-child { border-bottom: none; }
-        .nb-drop-item:hover { background: #f0f8ff; }
+        .nb-drop-item:hover { background: #f0f8ff !important; color: #2193b0 !important; }
         .nb-drop-logout { color: #e05c5c !important; }
-        .nb-drop-logout:hover { background: #fff5f5 !important; }
+        .nb-drop-logout:hover { background: #fff5f5 !important; color: #e05c5c !important; }
 
         /* Hamburger */
         .nb-hamburger {
@@ -289,7 +312,7 @@ export default function Navbar() {
           display: block;
           width: 22px;
           height: 2px;
-          background: #444;
+          background: #444444;
           border-radius: 2px;
           transition: all 0.3s;
         }
@@ -302,96 +325,107 @@ export default function Navbar() {
           display: none;
           position: fixed;
           inset: 0;
-          background: rgba(0,0,0,0.4);
+          background: rgba(0,0,0,0.45);
           z-index: 998;
         }
         .nb-overlay.open { display: block; }
 
-        /* Mobile drawer */
+        /* Mobile Drawer - slides from left */
         .nb-mobile-menu {
           position: fixed;
           top: 0;
           left: 0;
-          right: 0;
           bottom: 0;
-          background: #fff;
-          z-index: 999;
+          width: 78%;
+          max-width: 300px;
+          background: #ffffff;
+          z-index: 9999;
           overflow-y: auto;
+          overflow-x: hidden;
           transform: translateX(-100%);
           transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
-          width: 80%;
-          max-width: 320px;
-          box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+          box-shadow: 4px 0 24px rgba(0,0,0,0.18);
         }
         .nb-mobile-menu.open {
           transform: translateX(0);
         }
 
+        /* Drawer header */
         .nb-mobile-header {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 14px 18px;
+          padding: 14px 16px;
           border-bottom: 1px solid #f0f0f0;
-          background: #fff;
+          background: #ffffff;
           position: sticky;
           top: 0;
           z-index: 10;
         }
         .nb-mobile-close {
-          background: none;
+          background: #f5f5f5;
           border: none;
-          font-size: 22px;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          font-size: 16px;
           cursor: pointer;
           color: #555;
-          padding: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           line-height: 1;
+          flex-shrink: 0;
         }
 
+        /* User info in drawer */
         .nb-mobile-user-info {
           display: flex;
           align-items: center;
           gap: 12px;
-          padding: 14px 18px;
+          padding: 14px 16px;
           background: #f8fafc;
           border-bottom: 2px solid #eef6fb;
         }
         .nb-mobile-user-name {
           font-size: 14px;
           font-weight: 600;
-          color: #333;
+          color: #333333;
           font-family: 'Poppins', sans-serif;
         }
 
+        /* Drawer links */
         .nb-mobile-link {
           display: flex;
           align-items: center;
           gap: 12px;
-          padding: 14px 18px;
+          padding: 14px 16px;
           font-size: 14px;
-          color: #444;
+          color: #444444;
           font-family: 'Poppins', sans-serif;
           font-weight: 500;
           cursor: pointer;
           border-bottom: 1px solid #f0f0f0;
           transition: background 0.15s;
           -webkit-tap-highlight-color: transparent;
+          background: #ffffff;
         }
         .nb-mobile-link:active { background: #f0f8ff; }
         .nb-mobile-link-active {
-          color: #2193b0;
+          color: #2193b0 !important;
           background: #f0f8ff;
           border-left: 3px solid #2193b0;
-          padding-left: 15px;
+          padding-left: 13px;
         }
 
+        /* Book toggle in drawer */
         .nb-mobile-book-toggle {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 14px 18px;
+          padding: 14px 16px;
           font-size: 14px;
-          color: #444;
+          color: #444444;
           font-family: 'Poppins', sans-serif;
           font-weight: 500;
           cursor: pointer;
@@ -399,8 +433,8 @@ export default function Navbar() {
           transition: background 0.15s;
           -webkit-tap-highlight-color: transparent;
           user-select: none;
+          background: #ffffff;
         }
-        .nb-mobile-book-toggle:active { background: #f0f8ff; }
         .nb-mobile-book-toggle.active { color: #2193b0; }
 
         .nb-chevron {
@@ -424,14 +458,15 @@ export default function Navbar() {
           display: flex;
           align-items: center;
           gap: 12px;
-          padding: 12px 32px;
+          padding: 12px 30px;
           font-size: 13px;
-          color: #555;
+          color: #555555;
           font-family: 'Poppins', sans-serif;
           cursor: pointer;
           border-bottom: 1px solid #f5f5f5;
           transition: background 0.15s;
           -webkit-tap-highlight-color: transparent;
+          background: #fafafa;
         }
         .nb-mobile-sub-item:last-child { border-bottom: none; }
         .nb-mobile-sub-item:active { background: #e8f4fa; color: #2193b0; }
@@ -443,7 +478,7 @@ export default function Navbar() {
           display: block;
           padding: 12px;
           background: #2193b0;
-          color: #fff;
+          color: #ffffff;
           border: none;
           border-radius: 10px;
           font-size: 14px;
@@ -455,11 +490,14 @@ export default function Navbar() {
           width: calc(100% - 32px);
           -webkit-tap-highlight-color: transparent;
         }
+        .nb-mobile-auth-btn:hover { background: #1a7a9a; }
         .nb-mobile-logout-btn {
           background: #fff0f0 !important;
           color: #e05c5c !important;
         }
+        .nb-mobile-logout-btn:hover { background: #ffe0e0 !important; }
 
+        /* Responsive */
         @media (max-width: 900px) {
           .nb { padding: 12px 18px; }
           .nb-links,
@@ -469,6 +507,8 @@ export default function Navbar() {
         }
         @media (max-width: 480px) {
           .nb { padding: 10px 14px; }
+          .nb-logo-icon { width: 36px; height: 36px; }
+          .nb-logo-text { font-size: 13px; }
         }
       `}</style>
 
@@ -478,7 +518,9 @@ export default function Navbar() {
         onClick={() => { setMobileMenuOpen(false); setMobileBookOpen(false); }}
       />
 
+      {/* Main Navbar */}
       <nav className="nb" ref={navRef}>
+
         {/* Logo */}
         <div className="nb-logo" onClick={() => goTo("/")}>
           <div className="nb-logo-icon">
@@ -504,6 +546,8 @@ export default function Navbar() {
               {label}
             </span>
           ))}
+
+          {/* Book Appointment Dropdown */}
           <div
             className="nb-book-wrap"
             onMouseEnter={handleBookEnter}
@@ -512,26 +556,38 @@ export default function Navbar() {
             <span className={`nb-link ${isBookActive ? "nb-link-active" : ""}`}>
               Book Appointment ▾
             </span>
+
             {showBookDropdown && (
               <div className="nb-book-dropdown">
-                <div className="nb-book-item" onClick={() => { navigate("/book-appointment"); setShowBookDropdown(false); }}>
+                <div
+                  className="nb-book-item"
+                  onClick={() => { navigate("/book-appointment"); setShowBookDropdown(false); }}
+                >
                   <div className="nb-drop-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
-                      <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                      stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="3" y="4" width="18" height="18" rx="2"/>
+                      <line x1="16" y1="2" x2="16" y2="6"/>
+                      <line x1="8" y1="2" x2="8" y2="6"/>
+                      <line x1="3" y1="10" x2="21" y2="10"/>
                     </svg>
                   </div>
-                  <span>Book Appointment</span>
+                  <span className="nb-book-item-label">Book Appointment</span>
                 </div>
-                <div className="nb-book-item" onClick={() => { navigate("/verify-number"); setShowBookDropdown(false); }}>
+                <div
+                  className="nb-book-item"
+                  onClick={() => { navigate("/verify-number"); setShowBookDropdown(false); }}
+                >
                   <div className="nb-drop-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                      stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                       <polyline points="14 2 14 8 20 8"/>
-                      <line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/>
+                      <line x1="9" y1="13" x2="15" y2="13"/>
+                      <line x1="9" y1="17" x2="13" y2="17"/>
                     </svg>
                   </div>
-                  <span>Manage</span>
+                  <span className="nb-book-item-label">Manage</span>
                 </div>
               </div>
             )}
@@ -540,29 +596,51 @@ export default function Navbar() {
 
         {/* Desktop Auth */}
         {user ? (
-          <div className="nb-user-box" onClick={() => setShowUserDropdown(!showUserDropdown)}>
-            <div className="nb-avatar">{userData?.name?.charAt(0).toUpperCase() || "U"}</div>
+          <div
+            className="nb-user-box"
+            onClick={() => setShowUserDropdown(!showUserDropdown)}
+          >
+            <div className="nb-avatar">
+              {userData?.name?.charAt(0).toUpperCase() || "U"}
+            </div>
             <span className="nb-user-name">{userData?.name || "User"}</span>
             <span style={{ fontSize: "11px", color: "#888" }}>▾</span>
+
             {showUserDropdown && (
               <div className="nb-user-dropdown">
-                <div className="nb-drop-item" onClick={(e) => { e.stopPropagation(); navigate("/dashboard"); setShowUserDropdown(false); }}>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-                    <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+                <div
+                  className="nb-drop-item"
+                  onClick={(e) => { e.stopPropagation(); navigate("/dashboard"); setShowUserDropdown(false); }}
+                >
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="3" width="7" height="7"/>
+                    <rect x="14" y="3" width="7" height="7"/>
+                    <rect x="3" y="14" width="7" height="7"/>
+                    <rect x="14" y="14" width="7" height="7"/>
                   </svg>
                   Dashboard
                 </div>
-                <div className="nb-drop-item" onClick={(e) => { e.stopPropagation(); navigate("/profile"); setShowUserDropdown(false); }}>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                <div
+                  className="nb-drop-item"
+                  onClick={(e) => { e.stopPropagation(); navigate("/profile"); setShowUserDropdown(false); }}
+                >
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
                   </svg>
                   Profile
                 </div>
-                <div className="nb-drop-item nb-drop-logout" onClick={(e) => { e.stopPropagation(); handleLogout(); }}>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#e05c5c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <div
+                  className="nb-drop-item nb-drop-logout"
+                  onClick={(e) => { e.stopPropagation(); handleLogout(); }}
+                >
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="#e05c5c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                    <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+                    <polyline points="16 17 21 12 16 7"/>
+                    <line x1="21" y1="12" x2="9" y2="12"/>
                   </svg>
                   Logout
                 </div>
@@ -570,10 +648,12 @@ export default function Navbar() {
             )}
           </div>
         ) : (
-          <button className="nb-login-btn" onClick={() => navigate("/login")}>Login</button>
+          <button className="nb-login-btn" onClick={() => navigate("/login")}>
+            Login
+          </button>
         )}
 
-        {/* Hamburger */}
+        {/* Hamburger Button */}
         <button
           id="nb-hamburger-btn"
           className={`nb-hamburger ${mobileMenuOpen ? "open" : ""}`}
@@ -585,28 +665,38 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile Drawer */}
-      <div id="nb-mobile-drawer" className={`nb-mobile-menu ${mobileMenuOpen ? "open" : ""}`}>
-
+      <div
+        id="nb-mobile-drawer"
+        className={`nb-mobile-menu ${mobileMenuOpen ? "open" : ""}`}
+      >
         {/* Drawer Header */}
         <div className="nb-mobile-header">
           <div className="nb-logo" onClick={() => goTo("/")}>
             <div className="nb-logo-icon" style={{ width: 32, height: 32 }}>
-              <span style={{ color: "#e05c5c", fontSize: "16px", fontWeight: "bold" }}>✚</span>
+              <span style={{ color: "#e05c5c", fontSize: "15px", fontWeight: "bold" }}>✚</span>
             </div>
             <div>
               <div className="nb-logo-text" style={{ fontSize: 12 }}>
                 <span style={{ color: "#e05c5c" }}>SMART </span>
                 <span style={{ color: "#2193b0" }}>CARE</span>
               </div>
+              <div className="nb-logo-sub" style={{ fontSize: 8 }}>POLYCLINIC</div>
             </div>
           </div>
-          <button className="nb-mobile-close" onClick={() => setMobileMenuOpen(false)}>✕</button>
+          <button
+            className="nb-mobile-close"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            ✕
+          </button>
         </div>
 
         {/* User Info */}
         {user && (
           <div className="nb-mobile-user-info">
-            <div className="nb-avatar">{userData?.name?.charAt(0).toUpperCase() || "U"}</div>
+            <div className="nb-avatar">
+              {userData?.name?.charAt(0).toUpperCase() || "U"}
+            </div>
             <span className="nb-mobile-user-name">{userData?.name || "User"}</span>
           </div>
         )}
@@ -622,7 +712,7 @@ export default function Navbar() {
           </div>
         ))}
 
-        {/* Book Appointment accordion */}
+        {/* Book Appointment Accordion */}
         <div
           className={`nb-mobile-book-toggle ${isBookActive ? "active" : ""}`}
           onClick={() => setMobileBookOpen(prev => !prev)}
@@ -631,8 +721,12 @@ export default function Navbar() {
           <span className={`nb-chevron ${mobileBookOpen ? "open" : ""}`}>▾</span>
         </div>
         <div className={`nb-mobile-book-sub ${mobileBookOpen ? "open" : ""}`}>
-          <div className="nb-mobile-sub-item" onClick={() => goTo("/book-appointment")}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <div
+            className="nb-mobile-sub-item"
+            onClick={() => goTo("/book-appointment")}
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+              stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="3" y="4" width="18" height="18" rx="2"/>
               <line x1="16" y1="2" x2="16" y2="6"/>
               <line x1="8" y1="2" x2="8" y2="6"/>
@@ -640,8 +734,12 @@ export default function Navbar() {
             </svg>
             Book Appointment
           </div>
-          <div className="nb-mobile-sub-item" onClick={() => goTo("/verify-number")}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <div
+            className="nb-mobile-sub-item"
+            onClick={() => goTo("/verify-number")}
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+              stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
               <polyline points="14 2 14 8 20 8"/>
             </svg>
@@ -651,28 +749,41 @@ export default function Navbar() {
 
         <div className="nb-mobile-divider" />
 
-        {/* Auth */}
+        {/* Auth Section */}
         {user ? (
           <>
             <div className="nb-mobile-link" onClick={() => goTo("/dashboard")}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-                <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="7" height="7"/>
+                <rect x="14" y="3" width="7" height="7"/>
+                <rect x="3" y="14" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/>
               </svg>
               Dashboard
             </div>
             <div className="nb-mobile-link" onClick={() => goTo("/profile")}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
               </svg>
               Profile
             </div>
-            <button className="nb-mobile-auth-btn nb-mobile-logout-btn" onClick={handleLogout}>
+            <button
+              className="nb-mobile-auth-btn nb-mobile-logout-btn"
+              onClick={handleLogout}
+            >
               Logout
             </button>
           </>
         ) : (
-          <button className="nb-mobile-auth-btn" onClick={() => goTo("/login")}>Login</button>
+          <button
+            className="nb-mobile-auth-btn"
+            onClick={() => goTo("/login")}
+          >
+            Login
+          </button>
         )}
       </div>
     </>
