@@ -24,64 +24,53 @@ const services = [
 ];
 
 function CheckIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-      <circle cx="11" cy="11" r="10" stroke="#27ae60" strokeWidth="1.5"/>
-      <path d="M6.5 11L9.5 14L15.5 8" stroke="#27ae60" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  );
+  return <svg width="20" height="20" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="10" stroke="#27ae60" strokeWidth="1.5"/><path d="M6.5 11L9.5 14L15.5 8" stroke="#27ae60" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>;
 }
 function CrossIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-      <circle cx="11" cy="11" r="10" stroke="#e74c3c" strokeWidth="1.5"/>
-      <path d="M7.5 7.5L14.5 14.5" stroke="#e74c3c" strokeWidth="2" strokeLinecap="round"/>
-      <path d="M14.5 7.5L7.5 14.5" stroke="#e74c3c" strokeWidth="2" strokeLinecap="round"/>
-    </svg>
-  );
+  return <svg width="20" height="20" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="10" stroke="#e74c3c" strokeWidth="1.5"/><path d="M7.5 7.5L14.5 14.5" stroke="#e74c3c" strokeWidth="2" strokeLinecap="round"/><path d="M14.5 7.5L7.5 14.5" stroke="#e74c3c" strokeWidth="2" strokeLinecap="round"/></svg>;
 }
 
 export default function PackagesPage() {
   const navigate = useNavigate();
-
   return (
-    <div style={{ fontFamily:"'Poppins',sans-serif", background:"#fff" }}>
+    <div style={{ fontFamily:"'Poppins',sans-serif", background:"#f8fafc", minHeight:"100vh" }}>
       <style>{`
-        .pk-page { max-width:1200px; margin:0 auto; padding:40px 30px 60px; }
-        .pk-title { font-size:22px; font-weight:700; color:#1a1a2e; margin-bottom:24px; font-family:'Poppins',sans-serif; }
-        .pk-table-wrap { overflow-x:auto; border:1px solid #e0e0e0; border-radius:4px; -webkit-overflow-scrolling:touch; }
-        .pk-table { width:100%; border-collapse:collapse; min-width:860px; }
-        .pk-th-service { padding:14px 16px; background:#2193b0; color:#fff; text-align:left; font-size:11px; font-weight:700; letter-spacing:0.8px; font-family:'Poppins',sans-serif; width:150px; border-right:1px solid rgba(255,255,255,0.2); }
-        .pk-th-desc { padding:14px 16px; background:#2193b0; color:#fff; text-align:left; font-size:11px; font-weight:700; letter-spacing:0.8px; font-family:'Poppins',sans-serif; width:200px; border-right:1px solid rgba(255,255,255,0.2); }
-        .pk-th { padding:14px 12px; background:#2193b0; color:#fff; text-align:center; font-size:11px; font-weight:700; letter-spacing:0.8px; font-family:'Poppins',sans-serif; line-height:1.5; border-right:1px solid rgba(255,255,255,0.2); }
+        .pk-page { max-width:1200px; margin:0 auto; padding:36px 24px 56px; }
+        .pk-header { margin-bottom:8px; }
+        .pk-title { font-size:20px; font-weight:700; color:#1a1a2e; font-family:'Poppins',sans-serif; }
+        .pk-scroll-hint { font-size:12px; color:#888; margin-bottom:10px; font-family:'Poppins',sans-serif; display:none; }
+        .pk-table-wrap { overflow-x:auto; border:1px solid #e0e0e0; border-radius:8px; -webkit-overflow-scrolling:touch; background:#fff; box-shadow:0 2px 10px rgba(0,0,0,0.06); }
+        .pk-table { width:100%; border-collapse:collapse; min-width:820px; }
+        .pk-th-service { padding:13px 14px; background:#2193b0; color:#fff; text-align:left; font-size:10px; font-weight:700; letter-spacing:0.8px; font-family:'Poppins',sans-serif; width:140px; border-right:1px solid rgba(255,255,255,0.2); }
+        .pk-th-desc { padding:13px 14px; background:#2193b0; color:#fff; text-align:left; font-size:10px; font-weight:700; letter-spacing:0.8px; font-family:'Poppins',sans-serif; width:180px; border-right:1px solid rgba(255,255,255,0.2); }
+        .pk-th { padding:13px 10px; background:#2193b0; color:#fff; text-align:center; font-size:10px; font-weight:700; letter-spacing:0.5px; font-family:'Poppins',sans-serif; line-height:1.4; border-right:1px solid rgba(255,255,255,0.2); }
         .pk-tr { border-bottom:1px solid #ebebeb; background:#fff; transition:background 0.15s; }
         .pk-tr:hover { background:#f0f8ff; }
-        .pk-td-service { padding:14px 16px; font-size:13px; font-weight:600; color:#222; border-right:1px solid #ebebeb; font-family:'Poppins',sans-serif; vertical-align:middle; }
-        .pk-td-desc { padding:14px 16px; font-size:13px; color:#555; border-right:1px solid #ebebeb; font-family:'Poppins',sans-serif; line-height:1.5; vertical-align:middle; }
-        .pk-td { padding:14px 12px; text-align:center; border-right:1px solid #ebebeb; vertical-align:middle; }
-        .pk-td-price { padding:14px 12px; text-align:center; font-size:14px; font-weight:600; color:#333; border-right:1px solid #ebebeb; font-family:'Poppins',sans-serif; vertical-align:middle; }
-        .pk-check-cell { display:flex; flex-direction:column; align-items:center; gap:4px; }
-        .pk-cell-text { font-size:11px; color:#444; font-family:'Poppins',sans-serif; text-align:center; line-height:1.4; max-width:110px; }
-        .pk-btn-row { display:flex; justify-content:flex-end; margin-top:20px; }
-        .pk-book-btn { padding:13px 50px; background:#2193b0; color:#fff; border:none; border-radius:6px; font-size:15px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; transition:all 0.2s; }
+        .pk-td-service { padding:13px 14px; font-size:12px; font-weight:600; color:#222; border-right:1px solid #ebebeb; font-family:'Poppins',sans-serif; vertical-align:middle; }
+        .pk-td-desc { padding:13px 14px; font-size:12px; color:#555; border-right:1px solid #ebebeb; font-family:'Poppins',sans-serif; line-height:1.5; vertical-align:middle; }
+        .pk-td { padding:12px 10px; text-align:center; border-right:1px solid #ebebeb; vertical-align:middle; }
+        .pk-td-price { padding:12px 10px; text-align:center; font-size:13px; font-weight:700; color:#2193b0; border-right:1px solid #ebebeb; font-family:'Poppins',sans-serif; vertical-align:middle; }
+        .pk-check-cell { display:flex; flex-direction:column; align-items:center; gap:3px; }
+        .pk-cell-text { font-size:10px; color:#444; font-family:'Poppins',sans-serif; text-align:center; line-height:1.4; max-width:100px; }
+        .pk-btn-row { display:flex; justify-content:flex-end; margin-top:18px; }
+        .pk-book-btn { padding:12px 44px; background:#2193b0; color:#fff; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; transition:all 0.2s; }
         .pk-book-btn:hover { background:#1a7a9a; transform:translateY(-2px); }
-        .pk-scroll-hint { display:none; font-size:12px; color:#888; text-align:center; margin-bottom:8px; font-family:'Poppins',sans-serif; }
-
-        @media (max-width:900px) {
-          .pk-page { padding:28px 20px 48px; }
+        @media (max-width:768px) {
+          .pk-page { padding:24px 16px 40px; }
           .pk-scroll-hint { display:block; }
           .pk-btn-row { justify-content:center; }
           .pk-book-btn { width:100%; max-width:300px; }
         }
-        @media (max-width:600px) {
-          .pk-page { padding:20px 16px 40px; }
-          .pk-title { font-size:18px; }
+        @media (max-width:480px) {
+          .pk-page { padding:18px 12px 32px; }
+          .pk-title { font-size:16px; }
         }
       `}</style>
-
       <Navbar />
       <div className="pk-page">
-        <h2 className="pk-title">Service Package Details</h2>
+        <div className="pk-header">
+          <h2 className="pk-title">Service Package Details</h2>
+        </div>
         <p className="pk-scroll-hint">← Scroll horizontally to see all packages →</p>
         <div className="pk-table-wrap">
           <table className="pk-table">

@@ -83,75 +83,75 @@ export default function BookAppointmentPage() {
   const canStep1 = selectedDept && selectedDoctor;
   const canStep2 = selectedDate && selectedTime;
   const canStep3 = patientInfo.firstName && patientInfo.lastName && patientInfo.phone && patientInfo.email;
-
   const bookingTabs = ["Book a Doctor", "Book a Package", "Book Lab/IV"];
 
   return (
-    <div style={{ fontFamily:"'Poppins',sans-serif", background:"#fff" }}>
+    <div style={{ fontFamily:"'Poppins',sans-serif", background:"#f8fafc", minHeight:"100vh" }}>
       <style>{`
-        .bk-page { max-width:900px; margin:0 auto; padding:40px 30px 60px; }
-        .bk-steps { display:flex; align-items:center; margin-bottom:32px; gap:4px; overflow-x:auto; padding-bottom:4px; }
+        .bk-page { max-width:860px; margin:0 auto; padding:32px 20px 60px; }
+        .bk-steps { display:flex; align-items:center; margin-bottom:28px; gap:4px; overflow-x:auto; padding-bottom:4px; }
         .bk-step-item { display:flex; align-items:center; gap:6px; flex-shrink:0; }
         .bk-step-circle { width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; font-family:'Poppins',sans-serif; flex-shrink:0; }
         .bk-step-label { font-size:12px; font-family:'Poppins',sans-serif; white-space:nowrap; }
-        .bk-step-line { width:32px; height:2px; border-radius:2px; flex-shrink:0; }
-        .bk-card { border:1px solid #e0e0e0; border-radius:8px; overflow:hidden; }
+        .bk-step-line { width:28px; height:2px; border-radius:2px; flex-shrink:0; }
+        .bk-card { border:1px solid #e0e0e0; border-radius:12px; overflow:hidden; background:#fff; box-shadow:0 2px 12px rgba(0,0,0,0.06); }
         .bk-tabs { display:flex; border-bottom:1px solid #e0e0e0; overflow-x:auto; }
-        .bk-tab { flex:1; min-width:120px; padding:14px 12px; border:none; background:#f8fafc; font-size:12px; font-weight:500; cursor:pointer; font-family:'Poppins',sans-serif; color:#666; border-right:1px solid #e0e0e0; transition:all 0.2s; white-space:nowrap; }
+        .bk-tab { flex:1; min-width:110px; padding:13px 10px; border:none; background:#f8fafc; font-size:12px; font-weight:500; cursor:pointer; font-family:'Poppins',sans-serif; color:#666; border-right:1px solid #e0e0e0; transition:all 0.2s; white-space:nowrap; }
         .bk-tab:last-child { border-right:none; }
         .bk-tab-active { background:#fff; color:#1a1a2e; font-weight:600; border-bottom:2px solid #2193b0; }
-        .bk-body { padding:28px; }
-        .bk-step-title { font-size:20px; font-weight:700; color:#1a1a2e; margin-bottom:6px; font-family:'Poppins',sans-serif; }
-        .bk-step-desc { font-size:14px; color:#888; margin-bottom:24px; font-family:'Poppins',sans-serif; }
-        .bk-field { margin-bottom:20px; }
+        .bk-body { padding:24px; }
+        .bk-step-title { font-size:18px; font-weight:700; color:#1a1a2e; margin-bottom:6px; font-family:'Poppins',sans-serif; }
+        .bk-step-desc { font-size:13px; color:#888; margin-bottom:20px; font-family:'Poppins',sans-serif; }
+        .bk-field { margin-bottom:18px; }
         .bk-label { display:block; font-size:13px; font-weight:500; color:#555; margin-bottom:8px; font-family:'Poppins',sans-serif; }
-        .bk-radio-row { display:flex; gap:20px; flex-wrap:wrap; }
+        .bk-radio-row { display:flex; gap:16px; flex-wrap:wrap; }
         .bk-radio-lbl { display:flex; align-items:center; gap:6px; cursor:pointer; font-size:14px; color:#444; font-family:'Poppins',sans-serif; }
-        .bk-select { width:100%; padding:12px 14px; border:1.5px solid #e0e0e0; border-radius:8px; font-size:14px; outline:none; background:#f8fafc; font-family:'Poppins',sans-serif; color:#333; cursor:pointer; }
-        .bk-input { width:100%; padding:12px 14px; border:1.5px solid #e0e0e0; border-radius:8px; font-size:14px; box-sizing:border-box; outline:none; background:#f8fafc; font-family:'Poppins',sans-serif; color:#333; }
-        .bk-textarea { width:100%; padding:12px 14px; border:1.5px solid #e0e0e0; border-radius:8px; font-size:14px; box-sizing:border-box; outline:none; background:#f8fafc; font-family:'Poppins',sans-serif; color:#333; resize:vertical; }
-        .bk-row2 { display:flex; gap:16px; }
-        .bk-doctors-grid { display:flex; flex-direction:column; gap:12px; }
-        .bk-doctor-card { display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:10px; cursor:pointer; transition:all 0.2s; position:relative; border:2px solid #eee; }
+        .bk-select { width:100%; padding:11px 14px; border:1.5px solid #e0e0e0; border-radius:8px; font-size:14px; outline:none; background:#f8fafc; font-family:'Poppins',sans-serif; color:#333; cursor:pointer; }
+        .bk-input { width:100%; padding:11px 14px; border:1.5px solid #e0e0e0; border-radius:8px; font-size:14px; box-sizing:border-box; outline:none; background:#f8fafc; font-family:'Poppins',sans-serif; color:#333; }
+        .bk-textarea { width:100%; padding:11px 14px; border:1.5px solid #e0e0e0; border-radius:8px; font-size:14px; box-sizing:border-box; outline:none; background:#f8fafc; font-family:'Poppins',sans-serif; color:#333; resize:vertical; }
+        .bk-row2 { display:flex; gap:14px; }
+        .bk-doctors-grid { display:flex; flex-direction:column; gap:10px; }
+        .bk-doctor-card { display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:10px; cursor:pointer; transition:all 0.2s; border:2px solid #eee; }
         .bk-doctor-card.selected { border-color:#2193b0; background:#eef6fb; }
-        .bk-doctor-avatar { width:48px; height:48px; border-radius:50%; background:#2193b0; display:flex; align-items:center; justify-content:center; color:#fff; font-size:18px; font-weight:700; flex-shrink:0; font-family:'Poppins',sans-serif; }
-        .bk-doctor-name { font-size:15px; font-weight:600; color:#1a1a2e; margin:0 0 4px; font-family:'Poppins',sans-serif; }
-        .bk-doctor-spec { font-size:13px; color:#2193b0; margin:0 0 6px; font-family:'Poppins',sans-serif; }
+        .bk-doctor-avatar { width:44px; height:44px; border-radius:50%; background:#2193b0; display:flex; align-items:center; justify-content:center; color:#fff; font-size:17px; font-weight:700; flex-shrink:0; font-family:'Poppins',sans-serif; }
+        .bk-doctor-name { font-size:14px; font-weight:600; color:#1a1a2e; margin:0 0 3px; font-family:'Poppins',sans-serif; }
+        .bk-doctor-spec { font-size:12px; color:#2193b0; margin:0 0 5px; font-family:'Poppins',sans-serif; }
         .bk-avail-days { display:flex; gap:4px; flex-wrap:wrap; }
-        .bk-avail-day { background:#eef6fb; color:#2193b0; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600; font-family:'Poppins',sans-serif; }
-        .bk-selected-check { width:24px; height:24px; border-radius:50%; background:#2193b0; color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; }
-        .bk-times-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); gap:8px; }
-        .bk-time-slot { padding:10px 8px; border:1.5px solid #e0e0e0; border-radius:8px; font-size:12px; font-weight:500; cursor:pointer; font-family:'Poppins',sans-serif; color:#555; background:#f8fafc; transition:all 0.2s; }
+        .bk-avail-day { background:#eef6fb; color:#2193b0; padding:2px 7px; border-radius:4px; font-size:10px; font-weight:600; font-family:'Poppins',sans-serif; }
+        .bk-selected-check { width:22px; height:22px; border-radius:50%; background:#2193b0; color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; margin-left:auto; }
+        .bk-times-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(90px,1fr)); gap:8px; }
+        .bk-time-slot { padding:9px 6px; border:1.5px solid #e0e0e0; border-radius:8px; font-size:12px; font-weight:500; cursor:pointer; font-family:'Poppins',sans-serif; color:#555; background:#f8fafc; transition:all 0.2s; text-align:center; }
         .bk-time-slot.active { background:#2193b0; color:#fff; border-color:#2193b0; }
-        .bk-summary-box { background:#f8fafc; border-radius:10px; padding:20px; margin-bottom:20px; border:1px solid #eee; }
-        .bk-summary-title { font-size:15px; font-weight:600; color:#1a1a2e; margin-bottom:16px; font-family:'Poppins',sans-serif; }
-        .bk-summary-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-        .bk-summary-item { display:flex; flex-direction:column; gap:4px; }
+        .bk-summary-box { background:#f8fafc; border-radius:10px; padding:18px; margin-bottom:18px; border:1px solid #eee; }
+        .bk-summary-title { font-size:14px; font-weight:600; color:#1a1a2e; margin-bottom:14px; font-family:'Poppins',sans-serif; }
+        .bk-summary-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+        .bk-summary-item { display:flex; flex-direction:column; gap:3px; }
         .bk-summary-label { font-size:11px; color:#aaa; font-weight:600; text-transform:uppercase; font-family:'Poppins',sans-serif; }
-        .bk-summary-value { font-size:14px; color:#333; font-weight:500; font-family:'Poppins',sans-serif; }
-        .bk-pay-note { display:flex; gap:14px; align-items:flex-start; background:#eef6fb; border-radius:10px; padding:16px; margin-bottom:24px; border:1px solid #c0dff0; }
-        .bk-pay-title { font-size:14px; font-weight:600; color:#1a1a2e; margin:0 0 4px; font-family:'Poppins',sans-serif; }
-        .bk-pay-desc { font-size:13px; color:#666; margin:0; font-family:'Poppins',sans-serif; }
+        .bk-summary-value { font-size:13px; color:#333; font-weight:500; font-family:'Poppins',sans-serif; }
+        .bk-pay-note { display:flex; gap:12px; align-items:flex-start; background:#eef6fb; border-radius:10px; padding:14px; margin-bottom:20px; border:1px solid #c0dff0; }
+        .bk-pay-title { font-size:13px; font-weight:600; color:#1a1a2e; margin:0 0 3px; font-family:'Poppins',sans-serif; }
+        .bk-pay-desc { font-size:12px; color:#666; margin:0; font-family:'Poppins',sans-serif; }
         .bk-btn-row { display:flex; justify-content:space-between; align-items:center; margin-top:8px; flex-wrap:wrap; gap:10px; }
-        .bk-back-btn { padding:11px 24px; background:#f0f0f0; color:#555; border:none; border-radius:8px; font-size:14px; font-weight:500; cursor:pointer; font-family:'Poppins',sans-serif; }
-        .bk-continue-btn { padding:11px 28px; background:#2193b0; color:#fff; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; }
-        .bk-confirm-btn { padding:11px 28px; background:#27ae60; color:#fff; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; }
-
-        @media (max-width:700px) {
-          .bk-page { padding:24px 16px 40px; }
-          .bk-body { padding:18px 16px; }
-          .bk-step-title { font-size:17px; }
+        .bk-back-btn { padding:10px 20px; background:#f0f0f0; color:#555; border:none; border-radius:8px; font-size:13px; font-weight:500; cursor:pointer; font-family:'Poppins',sans-serif; }
+        .bk-continue-btn { padding:10px 24px; background:#2193b0; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; }
+        .bk-confirm-btn { padding:10px 24px; background:#27ae60; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; }
+        @media (max-width:600px) {
+          .bk-page { padding:16px 12px 40px; }
+          .bk-body { padding:16px 14px; }
+          .bk-step-title { font-size:16px; }
           .bk-row2 { flex-direction:column; gap:0; }
           .bk-summary-grid { grid-template-columns:1fr; }
-          .bk-times-grid { grid-template-columns:repeat(auto-fill,minmax(80px,1fr)); }
+          .bk-times-grid { grid-template-columns:repeat(3,1fr); }
           .bk-step-label { display:none; }
+          .bk-step-line { width:16px; }
+          .bk-radio-row { gap:12px; }
+        }
+        @media (max-width:360px) {
+          .bk-times-grid { grid-template-columns:repeat(2,1fr); }
         }
       `}</style>
-
       <Navbar />
       <div className="bk-page">
-
-        {/* Steps */}
         <div className="bk-steps">
           {steps.map((step, idx) => (
             <React.Fragment key={step.num}>
@@ -167,10 +167,7 @@ export default function BookAppointmentPage() {
             </React.Fragment>
           ))}
         </div>
-
         <div className="bk-card">
-
-          {/* STEP 1 */}
           {currentStep === 1 && (
             <>
               <div className="bk-tabs">
@@ -209,7 +206,7 @@ export default function BookAppointmentPage() {
                         {doctors.map(doctor => (
                           <div key={doctor.id} className={`bk-doctor-card ${selectedDoctor === doctor.id ? "selected" : ""}`} onClick={() => setSelectedDoctor(doctor.id)}>
                             <div className="bk-doctor-avatar">{doctor.fullName?.charAt(0) || "D"}</div>
-                            <div style={{flex:1}}>
+                            <div style={{flex:1,minWidth:0}}>
                               <p className="bk-doctor-name">Dr. {doctor.fullName}</p>
                               <p className="bk-doctor-spec">{doctor.specialization || "General"}</p>
                               <div className="bk-avail-days">
@@ -232,16 +229,13 @@ export default function BookAppointmentPage() {
               </div>
             </>
           )}
-
-          {/* STEP 2 */}
           {currentStep === 2 && (
             <div className="bk-body">
               <h3 className="bk-step-title">Choose Date & Time</h3>
               <p className="bk-step-desc">Booking with <strong>Dr. {selectedDoctorObj?.fullName}</strong> — {selectedDeptObj?.name}</p>
               <div className="bk-field">
                 <label className="bk-label">Select Date</label>
-                <input className="bk-input" type="date" value={selectedDate} min={new Date().toISOString().split("T")[0]}
-                  onChange={(e) => { setSelectedDate(e.target.value); setSelectedTime(""); }}/>
+                <input className="bk-input" type="date" value={selectedDate} min={new Date().toISOString().split("T")[0]} onChange={(e) => { setSelectedDate(e.target.value); setSelectedTime(""); }}/>
               </div>
               {selectedDate && (
                 <div className="bk-field">
@@ -262,8 +256,6 @@ export default function BookAppointmentPage() {
               </div>
             </div>
           )}
-
-          {/* STEP 3 */}
           {currentStep === 3 && (
             <div className="bk-body">
               <h3 className="bk-step-title">Patient Information</h3>
@@ -298,8 +290,6 @@ export default function BookAppointmentPage() {
               </div>
             </div>
           )}
-
-          {/* STEP 4 */}
           {currentStep === 4 && (
             <div className="bk-body">
               <h3 className="bk-step-title">Review & Confirm</h3>
@@ -332,7 +322,7 @@ export default function BookAppointmentPage() {
                 </div>
               </div>
               <div className="bk-pay-note">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0,marginTop:2}}><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0,marginTop:2}}><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
                 <div>
                   <p className="bk-pay-title">Payment at Clinic</p>
                   <p className="bk-pay-desc">Payment will be collected at the clinic upon your visit.</p>

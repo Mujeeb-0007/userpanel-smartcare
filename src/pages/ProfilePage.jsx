@@ -13,12 +13,12 @@ export default function ProfilePage() {
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
-    name:     userData?.name     || "",
+    name: userData?.name || "",
     lastName: userData?.lastName || "",
-    gender:   userData?.gender   || "",
-    idType:   userData?.idType   || "",
-    email:    userData?.email    || "",
-    phone:    userData?.phone    || "",
+    gender: userData?.gender || "",
+    idType: userData?.idType || "",
+    email: userData?.email || "",
+    phone: userData?.phone || "",
   });
 
   const handleSave = async () => {
@@ -38,41 +38,39 @@ export default function ProfilePage() {
   return (
     <div style={{ fontFamily:"'Poppins',sans-serif" }}>
       <style>{`
-        .pf-page { background:#f5f6fa; min-height:calc(100vh - 70px); padding:40px 0; }
-        .pf-wrap { max-width:800px; margin:0 auto; padding:0 30px; }
-        .pf-header { display:flex; align-items:center; gap:16px; margin-bottom:28px; }
-        .pf-back-btn { background:none; border:none; font-size:15px; cursor:pointer; color:#2193b0; font-family:'Poppins',sans-serif; font-weight:500; padding:0; }
-        .pf-title { font-size:24px; font-weight:700; color:#1a1a2e; margin:0; font-family:'Poppins',sans-serif; }
-        .pf-success { background:#d4edda; color:#155724; padding:12px 16px; border-radius:8px; font-size:14px; margin-bottom:20px; font-family:'Poppins',sans-serif; }
-        .pf-card { background:#fff; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.08); }
-        .pf-avatar-row { display:flex; align-items:center; gap:20px; margin-bottom:24px; }
-        .pf-avatar { width:72px; height:72px; background:#2193b0; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:28px; flex-shrink:0; font-family:'Poppins',sans-serif; }
-        .pf-user-name { font-size:20px; font-weight:700; color:#1a1a2e; margin:0 0 6px; font-family:'Poppins',sans-serif; }
-        .pf-role-badge { background:#e8f4fb; color:#2193b0; padding:4px 14px; border-radius:20px; font-size:12px; font-weight:600; font-family:'Poppins',sans-serif; }
-        .pf-divider { border:none; border-top:1px solid #f0f0f0; margin:20px 0; }
-        .pf-info-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:28px; }
-        .pf-info-item { background:#f8fafc; border-radius:10px; padding:16px; }
-        .pf-info-label { display:block; font-size:11px; font-weight:600; color:#aaa; text-transform:uppercase; margin-bottom:6px; font-family:'Poppins',sans-serif; }
-        .pf-info-value { font-size:15px; color:#333; font-weight:500; margin:0; font-family:'Poppins',sans-serif; }
-        .pf-input { width:100%; padding:9px 12px; border:1.5px solid #2193b0; border-radius:6px; font-size:14px; box-sizing:border-box; outline:none; font-family:'Poppins',sans-serif; }
-        .pf-btn-row { display:flex; gap:12px; justify-content:flex-end; flex-wrap:wrap; }
-        .pf-edit-btn { padding:11px 28px; background:#2193b0; color:#fff; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; }
-        .pf-save-btn { padding:11px 28px; background:#27ae60; color:#fff; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; }
-        .pf-cancel-btn { padding:11px 28px; background:#f0f0f0; color:#555; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; }
-
+        .pf-page { background:#f5f6fa; min-height:calc(100vh - 65px); padding:32px 0; }
+        .pf-wrap { max-width:780px; margin:0 auto; padding:0 24px; }
+        .pf-header { display:flex; align-items:center; gap:14px; margin-bottom:24px; }
+        .pf-back-btn { background:none; border:none; font-size:14px; cursor:pointer; color:#2193b0; font-family:'Poppins',sans-serif; font-weight:500; padding:0; }
+        .pf-title { font-size:22px; font-weight:700; color:#1a1a2e; margin:0; font-family:'Poppins',sans-serif; }
+        .pf-success { background:#d4edda; color:#155724; padding:10px 14px; border-radius:8px; font-size:13px; margin-bottom:18px; font-family:'Poppins',sans-serif; }
+        .pf-card { background:#fff; border-radius:16px; padding:28px; box-shadow:0 4px 20px rgba(0,0,0,0.08); }
+        .pf-avatar-row { display:flex; align-items:center; gap:18px; margin-bottom:20px; }
+        .pf-avatar { width:66px; height:66px; background:#2193b0; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:26px; flex-shrink:0; font-family:'Poppins',sans-serif; }
+        .pf-user-name { font-size:18px; font-weight:700; color:#1a1a2e; margin:0 0 5px; font-family:'Poppins',sans-serif; }
+        .pf-role-badge { background:#e8f4fb; color:#2193b0; padding:3px 12px; border-radius:20px; font-size:11px; font-weight:600; font-family:'Poppins',sans-serif; }
+        .pf-divider { border:none; border-top:1px solid #f0f0f0; margin:18px 0; }
+        .pf-info-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:24px; }
+        .pf-info-item { background:#f8fafc; border-radius:10px; padding:14px; }
+        .pf-info-label { display:block; font-size:10px; font-weight:600; color:#aaa; text-transform:uppercase; margin-bottom:5px; font-family:'Poppins',sans-serif; }
+        .pf-info-value { font-size:14px; color:#333; font-weight:500; margin:0; font-family:'Poppins',sans-serif; }
+        .pf-input { width:100%; padding:8px 11px; border:1.5px solid #2193b0; border-radius:6px; font-size:13px; box-sizing:border-box; outline:none; font-family:'Poppins',sans-serif; }
+        .pf-btn-row { display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; }
+        .pf-edit-btn { padding:10px 24px; background:#2193b0; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; }
+        .pf-save-btn { padding:10px 24px; background:#27ae60; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; }
+        .pf-cancel-btn { padding:10px 24px; background:#f0f0f0; color:#555; border:none; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; }
         @media (max-width:600px) {
-          .pf-wrap { padding:0 16px; }
-          .pf-page { padding:24px 0; }
-          .pf-card { padding:20px 16px; }
-          .pf-title { font-size:19px; }
+          .pf-wrap { padding:0 14px; }
+          .pf-page { padding:20px 0; }
+          .pf-card { padding:18px 14px; }
+          .pf-title { font-size:17px; }
           .pf-info-grid { grid-template-columns:1fr; }
-          .pf-avatar { width:56px; height:56px; font-size:22px; }
-          .pf-user-name { font-size:17px; }
+          .pf-avatar { width:52px; height:52px; font-size:20px; }
+          .pf-user-name { font-size:16px; }
           .pf-btn-row { justify-content:stretch; }
-          .pf-edit-btn, .pf-save-btn, .pf-cancel-btn { flex:1; }
+          .pf-edit-btn, .pf-save-btn, .pf-cancel-btn { flex:1; text-align:center; }
         }
       `}</style>
-
       <Navbar />
       <div className="pf-page">
         <div className="pf-wrap">
@@ -80,9 +78,7 @@ export default function ProfilePage() {
             <button className="pf-back-btn" onClick={() => navigate("/dashboard")}>← Back</button>
             <h2 className="pf-title">My Profile</h2>
           </div>
-
           {success && <div className="pf-success">✅ Profile updated successfully!</div>}
-
           <div className="pf-card">
             <div className="pf-avatar-row">
               <div className="pf-avatar">{userData?.name?.charAt(0).toUpperCase() || "U"}</div>
@@ -91,19 +87,17 @@ export default function ProfilePage() {
                 <span className="pf-role-badge">Patient</span>
               </div>
             </div>
-
             <hr className="pf-divider"/>
-
             <div className="pf-info-grid">
               {[
-                { label:"First Name",   field:"name",     type:"text",   placeholder:"First name" },
-                { label:"Last Name",    field:"lastName", type:"text",   placeholder:"Last name" },
-                { label:"Email",        field:"email",    type:"text",   readonly:true },
-                { label:"Phone",        field:"phone",    type:"tel",    placeholder:"+971 XX XXX XXXX" },
-                { label:"Gender",       field:"gender",   type:"select", options:[{v:"male",l:"Male"},{v:"female",l:"Female"},{v:"other",l:"Other"}] },
-                { label:"ID Type",      field:"idType",   type:"select", options:[{v:"passport",l:"Passport"},{v:"emirates_id",l:"Emirates ID"},{v:"national_id",l:"National ID"}] },
-                { label:"Member Since", field:"date",     readonly:true, staticVal: userData?.date || "—" },
-                { label:"Account Role", field:"role",     readonly:true, staticVal:"Patient" },
+                { label:"First Name", field:"name", type:"text", placeholder:"First name" },
+                { label:"Last Name", field:"lastName", type:"text", placeholder:"Last name" },
+                { label:"Email", field:"email", type:"text", readonly:true },
+                { label:"Phone", field:"phone", type:"tel", placeholder:"+971 XX XXX XXXX" },
+                { label:"Gender", field:"gender", type:"select", options:[{v:"male",l:"Male"},{v:"female",l:"Female"},{v:"other",l:"Other"}] },
+                { label:"ID Type", field:"idType", type:"select", options:[{v:"passport",l:"Passport"},{v:"emirates_id",l:"Emirates ID"},{v:"national_id",l:"National ID"}] },
+                { label:"Member Since", field:"date", readonly:true, staticVal: userData?.date || "—" },
+                { label:"Account Role", field:"role", readonly:true, staticVal:"Patient" },
               ].map((item, i) => (
                 <div key={i} className="pf-info-item">
                   <label className="pf-info-label">{item.label}</label>
@@ -122,7 +116,6 @@ export default function ProfilePage() {
                 </div>
               ))}
             </div>
-
             <div className="pf-btn-row">
               {editing ? (
                 <>

@@ -12,26 +12,10 @@ const values = [
 ];
 
 const achievements = [
-  {
-    icon: <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#e05c5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>,
-    title: "Patient-Centric Excellence",
-    desc: "Consistently high satisfaction ratings through compassionate, personalised care.",
-  },
-  {
-    icon: <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#e05c5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M9 9l2 2 4-4"/></svg>,
-    title: "AI-Powered Healthcare",
-    desc: "Harnessing AI for operational efficiency, faster consultation, diagnostics, personalised treatment, and improved outcomes.",
-  },
-  {
-    icon: <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#e05c5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="9" height="9" rx="1"/><rect x="13" y="2" width="9" height="9" rx="1"/><rect x="2" y="13" width="9" height="9" rx="1"/><rect x="13" y="13" width="9" height="9" rx="1"/></svg>,
-    title: "State-of-the-Art",
-    desc: "Modern facilities with the latest medical technology.",
-  },
-  {
-    icon: <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#e05c5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>,
-    title: "International Team",
-    desc: "Doctors trained at prestigious institutions worldwide.",
-  },
+  { icon: <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#e05c5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>, title:"Patient-Centric Excellence", desc:"Consistently high satisfaction ratings through compassionate, personalised care." },
+  { icon: <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#e05c5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M9 9l2 2 4-4"/></svg>, title:"AI-Powered Healthcare", desc:"Harnessing AI for operational efficiency, faster consultation, diagnostics, personalised treatment, and improved outcomes." },
+  { icon: <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#e05c5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="9" height="9" rx="1"/><rect x="13" y="2" width="9" height="9" rx="1"/><rect x="2" y="13" width="9" height="9" rx="1"/><rect x="13" y="13" width="9" height="9" rx="1"/></svg>, title:"State-of-the-Art", desc:"Modern facilities with the latest medical technology." },
+  { icon: <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#e05c5c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>, title:"International Team", desc:"Doctors trained at prestigious institutions worldwide." },
 ];
 
 export default function AboutPage() {
@@ -45,71 +29,77 @@ export default function AboutPage() {
         .ab-hero-card { background:rgba(255,255,255,0.15); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.3); border-radius:16px; padding:30px 50px; text-align:center; }
         .ab-hero-title { font-size:42px; font-weight:800; margin:0; font-family:'Poppins',sans-serif; }
         .ab-hero-desc { font-size:16px; color:rgba(255,255,255,0.9); margin-top:10px; font-family:'Poppins',sans-serif; }
-        .ab-story { display:flex; gap:60px; padding:80px 60px; align-items:center; background:#fff; }
+        .ab-story { display:flex; gap:60px; padding:70px 60px; align-items:center; background:#fff; }
         .ab-story-left { flex:1; }
         .ab-story-right { flex:1; }
         .ab-badge { display:inline-block; background:#2193b0; color:#fff; padding:6px 16px; border-radius:20px; font-size:13px; font-weight:500; margin-bottom:16px; font-family:'Poppins',sans-serif; }
-        .ab-section-title { font-size:36px; font-weight:800; color:#1a1a2e; margin:0 0 20px; font-family:'Poppins',sans-serif; }
+        .ab-section-title { font-size:32px; font-weight:800; color:#1a1a2e; margin:0 0 20px; font-family:'Poppins',sans-serif; }
         .ab-text { font-size:15px; color:#555; line-height:1.8; margin-bottom:16px; font-family:'Poppins',sans-serif; }
         .ab-img-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-        .ab-img-grid img:first-child { width:100%; height:220px; object-fit:cover; border-radius:12px; }
-        .ab-img-grid img:last-child { width:100%; height:220px; object-fit:cover; border-radius:12px; margin-top:24px; }
-        .ab-mission { padding:80px 60px; background:#f8fafc; }
-        .ab-center-title { font-size:36px; font-weight:800; color:#1a1a2e; text-align:center; margin-bottom:12px; font-family:'Poppins',sans-serif; }
-        .ab-center-desc { font-size:15px; color:#666; text-align:center; margin-bottom:48px; font-family:'Poppins',sans-serif; }
+        .ab-img-grid img:first-child { width:100%; height:200px; object-fit:cover; border-radius:12px; }
+        .ab-img-grid img:last-child { width:100%; height:200px; object-fit:cover; border-radius:12px; margin-top:24px; }
+        .ab-mission { padding:70px 60px; background:#f8fafc; }
+        .ab-center-title { font-size:32px; font-weight:800; color:#1a1a2e; text-align:center; margin-bottom:12px; font-family:'Poppins',sans-serif; }
+        .ab-center-desc { font-size:15px; color:#666; text-align:center; margin-bottom:40px; font-family:'Poppins',sans-serif; }
         .ab-mission-grid { display:flex; gap:24px; flex-wrap:wrap; }
-        .ab-mission-card { flex:1; min-width:280px; background:#fff; border-radius:16px; padding:30px; box-shadow:0 4px 16px rgba(0,0,0,0.06); }
+        .ab-mission-card { flex:1; min-width:260px; background:#fff; border-radius:16px; padding:28px; box-shadow:0 4px 16px rgba(0,0,0,0.06); }
         .ab-mission-icon-row { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
-        .ab-mission-card-title { font-size:18px; font-weight:700; color:#1a1a2e; margin:0; font-family:'Poppins',sans-serif; }
+        .ab-mission-card-title { font-size:17px; font-weight:700; color:#1a1a2e; margin:0; font-family:'Poppins',sans-serif; }
         .ab-mission-card-desc { font-size:14px; color:#555; line-height:1.8; font-family:'Poppins',sans-serif; }
         .ab-value-item { display:flex; gap:8px; margin-bottom:10px; align-items:flex-start; }
         .ab-value-text { font-size:13px; color:#555; line-height:1.6; font-family:'Poppins',sans-serif; }
-        .ab-achieve { padding:80px 60px; background:#fff; }
+        .ab-achieve { padding:70px 60px; background:#fff; }
         .ab-achieve-grid { display:flex; gap:24px; flex-wrap:wrap; }
-        .ab-achieve-card { flex:1; min-width:220px; border:1px solid #eee; border-radius:16px; padding:30px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.06); transition:transform 0.3s,box-shadow 0.3s; }
+        .ab-achieve-card { flex:1; min-width:200px; border:1px solid #eee; border-radius:16px; padding:28px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.06); transition:transform 0.3s,box-shadow 0.3s; }
         .ab-achieve-card:hover { transform:translateY(-6px); box-shadow:0 12px 30px rgba(0,0,0,0.1); }
         .ab-achieve-icon { display:flex; justify-content:center; margin-bottom:16px; }
-        .ab-achieve-title { font-size:16px; font-weight:700; color:#1a1a2e; margin-bottom:12px; font-family:'Poppins',sans-serif; }
+        .ab-achieve-title { font-size:15px; font-weight:700; color:#1a1a2e; margin-bottom:10px; font-family:'Poppins',sans-serif; }
         .ab-achieve-desc { font-size:13px; color:#666; line-height:1.7; font-family:'Poppins',sans-serif; }
-        .ab-cta { background:#2193b0; padding:80px 60px; text-align:center; }
-        .ab-cta-title { font-size:36px; font-weight:800; color:#fff; margin-bottom:12px; font-family:'Poppins',sans-serif; }
-        .ab-cta-desc { font-size:16px; color:rgba(255,255,255,0.85); margin-bottom:32px; font-family:'Poppins',sans-serif; }
+        .ab-cta { background:#2193b0; padding:70px 60px; text-align:center; }
+        .ab-cta-title { font-size:34px; font-weight:800; color:#fff; margin-bottom:12px; font-family:'Poppins',sans-serif; }
+        .ab-cta-desc { font-size:15px; color:rgba(255,255,255,0.85); margin-bottom:28px; font-family:'Poppins',sans-serif; }
         .ab-cta-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
-        .ab-btn1 { padding:14px 32px; background:#fff; color:#2193b0; border:none; border-radius:8px; font-size:15px; font-weight:700; cursor:pointer; font-family:'Poppins',sans-serif; }
-        .ab-btn2 { padding:14px 32px; background:transparent; color:#fff; border:2px solid #fff; border-radius:8px; font-size:15px; font-weight:700; cursor:pointer; font-family:'Poppins',sans-serif; }
-
-        @media (max-width:900px) {
-          .ab-hero { height:300px; }
-          .ab-hero-card { padding:24px 28px; }
-          .ab-hero-title { font-size:30px; }
-          .ab-story { flex-direction:column; gap:32px; padding:50px 32px; }
-          .ab-mission { padding:50px 32px; }
-          .ab-achieve { padding:50px 32px; }
-          .ab-cta { padding:50px 32px; }
-          .ab-cta-title { font-size:26px; }
-          .ab-section-title { font-size:26px; }
-          .ab-center-title { font-size:26px; }
+        .ab-btn1 { padding:13px 28px; background:#fff; color:#2193b0; border:none; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer; font-family:'Poppins',sans-serif; }
+        .ab-btn2 { padding:13px 28px; background:transparent; color:#fff; border:2px solid #fff; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer; font-family:'Poppins',sans-serif; }
+        @media (max-width:1024px) {
+          .ab-story { padding:50px 40px; gap:40px; }
+          .ab-mission { padding:50px 40px; }
+          .ab-achieve { padding:50px 40px; }
+          .ab-cta { padding:50px 40px; }
         }
-        @media (max-width:600px) {
-          .ab-hero { height:240px; }
-          .ab-hero-card { padding:18px 20px; }
-          .ab-hero-title { font-size:22px; }
+        @media (max-width:768px) {
+          .ab-hero { height:280px; }
+          .ab-hero-card { padding:20px 24px; }
+          .ab-hero-title { font-size:28px; }
+          .ab-story { flex-direction:column; gap:28px; padding:40px 24px; }
+          .ab-section-title { font-size:24px; }
+          .ab-mission { padding:40px 24px; }
+          .ab-center-title { font-size:24px; }
+          .ab-mission-card { min-width:100%; }
+          .ab-achieve { padding:40px 24px; }
+          .ab-achieve-card { min-width:calc(50% - 12px); }
+          .ab-cta { padding:40px 24px; }
+          .ab-cta-title { font-size:24px; }
+        }
+        @media (max-width:480px) {
+          .ab-hero { height:220px; }
+          .ab-hero-card { padding:16px 18px; }
+          .ab-hero-title { font-size:20px; }
           .ab-hero-desc { font-size:13px; }
-          .ab-story { padding:36px 20px; }
+          .ab-story { padding:28px 16px; }
           .ab-img-grid { grid-template-columns:1fr; }
           .ab-img-grid img:last-child { margin-top:0; }
-          .ab-mission { padding:36px 20px; }
-          .ab-mission-card { min-width:100%; }
-          .ab-achieve { padding:36px 20px; }
+          .ab-mission { padding:28px 16px; }
+          .ab-center-title { font-size:20px; }
+          .ab-achieve { padding:28px 16px; }
           .ab-achieve-card { min-width:100%; }
-          .ab-cta { padding:40px 20px; }
-          .ab-section-title { font-size:22px; }
-          .ab-center-title { font-size:22px; }
+          .ab-cta { padding:32px 16px; }
+          .ab-cta-title { font-size:20px; }
+          .ab-cta-btns { flex-direction:column; align-items:center; }
+          .ab-btn1, .ab-btn2 { width:100%; max-width:280px; }
         }
       `}</style>
       <Navbar />
-
-      {/* Hero */}
       <div className="ab-hero">
         <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1400&q=80" alt="clinic"/>
         <div className="ab-hero-overlay">
@@ -123,8 +113,6 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
-
-      {/* Story */}
       <div className="ab-story">
         <div className="ab-story-left">
           <span className="ab-badge">Our Story</span>
@@ -139,8 +127,6 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
-
-      {/* Mission */}
       <div className="ab-mission">
         <h2 className="ab-center-title">Our Mission & Values</h2>
         <p className="ab-center-desc">Guided by our commitment to excellence and compassionate care</p>
@@ -175,8 +161,6 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
-
-      {/* Achievements */}
       <div className="ab-achieve">
         <h2 className="ab-center-title">Our Achievements</h2>
         <p className="ab-center-desc">Recognized for excellence in healthcare services</p>
@@ -190,8 +174,6 @@ export default function AboutPage() {
           ))}
         </div>
       </div>
-
-      {/* CTA */}
       <div className="ab-cta">
         <h2 className="ab-cta-title">Experience the Smart Care Difference</h2>
         <p className="ab-cta-desc">Join thousands of satisfied patients who trust us with their healthcare needs</p>
@@ -200,7 +182,6 @@ export default function AboutPage() {
           <button className="ab-btn2" onClick={() => navigate("/contact")}>Contact Us</button>
         </div>
       </div>
-
       <Footer />
     </div>
   );

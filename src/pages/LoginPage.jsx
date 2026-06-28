@@ -19,7 +19,6 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const navigate = useNavigate();
-
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -75,57 +74,53 @@ export default function LoginPage() {
   return (
     <div style={{ fontFamily:"'Poppins',sans-serif" }}>
       <style>{`
-        .lg-page { display:flex; min-height:calc(100vh - 70px); }
-        .lg-left { flex:1; position:relative; overflow:hidden; min-height:500px; }
+        .lg-page { display:flex; min-height:calc(100vh - 65px); }
+        .lg-left { flex:1; position:relative; overflow:hidden; min-height:460px; }
         .lg-slide { position:absolute; inset:0; background-size:cover; background-position:center; }
-        .lg-overlay { position:absolute; inset:0; background:linear-gradient(135deg,rgba(0,0,0,0.75),rgba(33,147,176,0.6)); display:flex; flex-direction:column; justify-content:space-between; padding:50px 40px; }
-        .lg-brand-row { display:flex; align-items:center; gap:10px; margin-bottom:24px; }
-        .lg-brand-icon { font-size:26px; }
-        .lg-brand-text { font-size:18px; font-weight:600; color:#fff; font-family:'Poppins',sans-serif; }
-        .lg-left-title { font-size:34px; font-weight:800; color:#fff; line-height:1.3; margin-bottom:14px; font-family:'Poppins',sans-serif; }
-        .lg-left-desc { font-size:15px; color:rgba(255,255,255,0.85); line-height:1.7; font-family:'Poppins',sans-serif; max-width:420px; }
-        .lg-dots { display:flex; gap:8px; justify-content:center; }
-        .lg-dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.5); cursor:pointer; transition:all 0.3s; }
-        .lg-dot-active { background:#fff; width:28px; border-radius:5px; }
-        .lg-left-btns { display:flex; gap:12px; flex-wrap:wrap; }
-        .lg-left-btn { padding:10px 20px; background:rgba(255,255,255,0.15); color:#fff; border:1px solid rgba(255,255,255,0.4); border-radius:8px; font-size:13px; cursor:pointer; font-family:'Poppins',sans-serif; backdrop-filter:blur(4px); }
-
-        .lg-right { width:480px; padding:40px; background:#fff; overflow-y:auto; flex-shrink:0; }
-        .lg-tabs { display:flex; border-bottom:2px solid #eee; margin-bottom:24px; }
-        .lg-tab { flex:1; padding:14px; border:none; background:transparent; font-size:15px; font-weight:500; cursor:pointer; color:#888; font-family:'Poppins',sans-serif; }
+        .lg-overlay { position:absolute; inset:0; background:linear-gradient(135deg,rgba(0,0,0,0.75),rgba(33,147,176,0.6)); display:flex; flex-direction:column; justify-content:space-between; padding:44px 36px; }
+        .lg-brand-row { display:flex; align-items:center; gap:10px; margin-bottom:20px; }
+        .lg-brand-icon { font-size:24px; }
+        .lg-brand-text { font-size:17px; font-weight:600; color:#fff; font-family:'Poppins',sans-serif; }
+        .lg-left-title { font-size:30px; font-weight:800; color:#fff; line-height:1.3; margin-bottom:12px; font-family:'Poppins',sans-serif; }
+        .lg-left-desc { font-size:14px; color:rgba(255,255,255,0.85); line-height:1.7; font-family:'Poppins',sans-serif; max-width:400px; }
+        .lg-dots { display:flex; gap:7px; justify-content:center; }
+        .lg-dot { width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,0.5); cursor:pointer; transition:all 0.3s; }
+        .lg-dot-active { background:#fff; width:26px; border-radius:5px; }
+        .lg-left-btns { display:flex; gap:10px; flex-wrap:wrap; }
+        .lg-left-btn { padding:9px 18px; background:rgba(255,255,255,0.15); color:#fff; border:1px solid rgba(255,255,255,0.4); border-radius:8px; font-size:13px; cursor:pointer; font-family:'Poppins',sans-serif; backdrop-filter:blur(4px); }
+        .lg-right { width:460px; padding:36px 32px; background:#fff; overflow-y:auto; flex-shrink:0; }
+        .lg-tabs { display:flex; border-bottom:2px solid #eee; margin-bottom:22px; }
+        .lg-tab { flex:1; padding:13px; border:none; background:transparent; font-size:14px; font-weight:500; cursor:pointer; color:#888; font-family:'Poppins',sans-serif; }
         .lg-tab-active { color:#1a1a2e; border-bottom:2px solid #1a1a2e; margin-bottom:-2px; font-weight:600; }
-        .lg-error { background:#fde8e8; color:#c0392b; padding:10px 14px; border-radius:8px; font-size:13px; margin-bottom:16px; font-family:'Poppins',sans-serif; }
-        .lg-form-title { font-size:22px; font-weight:700; color:#1a1a2e; margin:0 0 6px; font-family:'Poppins',sans-serif; }
-        .lg-form-sub { font-size:13px; color:#888; margin-bottom:24px; font-family:'Poppins',sans-serif; }
-        .lg-input-group { margin-bottom:16px; }
-        .lg-label { display:block; font-size:13px; font-weight:500; color:#555; margin-bottom:6px; font-family:'Poppins',sans-serif; }
-        .lg-label-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
-        .lg-forgot { font-size:13px; color:#2193b0; cursor:pointer; font-family:'Poppins',sans-serif; }
-        .lg-input { width:100%; padding:12px 14px; border:1.5px solid #e0e0e0; border-radius:8px; font-size:14px; box-sizing:border-box; outline:none; background:#f8fafc; font-family:'Poppins',sans-serif; color:#333; }
-        .lg-check-row { display:flex; align-items:center; gap:8px; margin-bottom:20px; }
-        .lg-check-label { font-size:13px; color:#555; font-family:'Poppins',sans-serif; }
-        .lg-submit-btn { width:100%; padding:13px; background:#2193b0; color:#fff; border:none; border-radius:8px; font-size:15px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; }
-
+        .lg-error { background:#fde8e8; color:#c0392b; padding:9px 13px; border-radius:8px; font-size:13px; margin-bottom:14px; font-family:'Poppins',sans-serif; }
+        .lg-form-title { font-size:20px; font-weight:700; color:#1a1a2e; margin:0 0 5px; font-family:'Poppins',sans-serif; }
+        .lg-form-sub { font-size:12px; color:#888; margin-bottom:20px; font-family:'Poppins',sans-serif; }
+        .lg-input-group { margin-bottom:14px; }
+        .lg-label { display:block; font-size:13px; font-weight:500; color:#555; margin-bottom:5px; font-family:'Poppins',sans-serif; }
+        .lg-label-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; }
+        .lg-forgot { font-size:12px; color:#2193b0; cursor:pointer; font-family:'Poppins',sans-serif; }
+        .lg-input { width:100%; padding:11px 13px; border:1.5px solid #e0e0e0; border-radius:8px; font-size:13px; box-sizing:border-box; outline:none; background:#f8fafc; font-family:'Poppins',sans-serif; color:#333; }
+        .lg-check-row { display:flex; align-items:center; gap:8px; margin-bottom:18px; }
+        .lg-check-label { font-size:12px; color:#555; font-family:'Poppins',sans-serif; }
+        .lg-submit-btn { width:100%; padding:12px; background:#2193b0; color:#fff; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; }
         @media (max-width:900px) {
           .lg-page { flex-direction:column; }
-          .lg-left { min-height:280px; flex:none; }
-          .lg-left-title { font-size:24px; }
-          .lg-overlay { padding:32px 28px; }
-          .lg-right { width:100%; padding:32px 24px; box-sizing:border-box; }
+          .lg-left { min-height:240px; flex:none; }
+          .lg-left-title { font-size:22px; }
+          .lg-overlay { padding:28px 24px; }
+          .lg-right { width:100%; padding:28px 24px; box-sizing:border-box; }
         }
-        @media (max-width:600px) {
-          .lg-left { min-height:220px; }
-          .lg-left-title { font-size:20px; }
-          .lg-overlay { padding:24px 20px; }
-          .lg-right { padding:24px 20px; }
+        @media (max-width:480px) {
+          .lg-left { min-height:200px; }
+          .lg-left-title { font-size:18px; }
+          .lg-overlay { padding:20px 18px; }
+          .lg-right { padding:22px 18px; }
           .lg-left-btns { display:none; }
+          .lg-left-desc { display:none; }
         }
       `}</style>
-
       <Navbar />
       <div className="lg-page">
-
-        {/* Left Slider */}
         <div className="lg-left">
           {loginSlides.map((img, i) => (
             <div key={i} className="lg-slide" style={{ backgroundImage:`url(${img})`, opacity: currentSlide === i ? 1 : 0, transition:"opacity 1s ease-in-out" }}/>
@@ -150,15 +145,12 @@ export default function LoginPage() {
             </div>
           </div>
         </div>
-
-        {/* Right Form */}
         <div className="lg-right">
           <div className="lg-tabs">
             <button className={`lg-tab ${tab === "login" ? "lg-tab-active" : ""}`} onClick={() => { setTab("login"); setError(""); }}>Login</button>
             <button className={`lg-tab ${tab === "register" ? "lg-tab-active" : ""}`} onClick={() => { setTab("register"); setError(""); }}>Register</button>
           </div>
           {error && <div className="lg-error">{error}</div>}
-
           {tab === "login" ? (
             <>
               <h2 className="lg-form-title">Account Login</h2>
@@ -187,17 +179,15 @@ export default function LoginPage() {
               <h2 className="lg-form-title">Create an Account</h2>
               <p className="lg-form-sub">Register to access our patient portal</p>
               <form onSubmit={handleRegister}>
-                {[
-                  { label:"Select ID Type", type:"select", value:idType, onChange:setIdType, options:[{v:"passport",l:"Passport"},{v:"emirates_id",l:"Emirates ID"},{v:"national_id",l:"National ID"}] },
-                ].map((field, i) => (
-                  <div key={i} className="lg-input-group">
-                    <label className="lg-label">{field.label}</label>
-                    <select className="lg-input" value={field.value} onChange={(e) => field.onChange(e.target.value)} required>
-                      <option value="">Select ID Type</option>
-                      {field.options.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
-                    </select>
-                  </div>
-                ))}
+                <div className="lg-input-group">
+                  <label className="lg-label">Select ID Type</label>
+                  <select className="lg-input" value={idType} onChange={(e) => setIdType(e.target.value)} required>
+                    <option value="">Select ID Type</option>
+                    <option value="passport">Passport</option>
+                    <option value="emirates_id">Emirates ID</option>
+                    <option value="national_id">National ID</option>
+                  </select>
+                </div>
                 <div className="lg-input-group">
                   <label className="lg-label">Full Name</label>
                   <input className="lg-input" type="text" placeholder="Michael" value={firstName} onChange={(e) => setFirstName(e.target.value)} required/>

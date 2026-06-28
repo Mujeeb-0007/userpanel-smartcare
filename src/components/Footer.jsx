@@ -36,14 +36,22 @@ export default function Footer() {
         .ft-contact-text { color:#aaa; font-size:13px; margin:0; font-family:'Poppins',sans-serif; line-height:1.5; }
         .ft-bottom { margin-top:36px; border-top:1px solid #1e2d3a; padding:18px 0; max-width:1200px; margin-left:auto; margin-right:auto; display:flex; justify-content:center; }
         .ft-bottom-text { font-size:12px; color:#555; margin:0; font-family:'Poppins',sans-serif; }
-        @media (max-width:1024px) { .ft { padding:40px 32px 0; } .ft-container { grid-template-columns:repeat(2,1fr); gap:28px; } }
-        @media (max-width:600px) { .ft { padding:32px 20px 0; } .ft-container { grid-template-columns:1fr; gap:24px; } .ft-bottom { justify-content:flex-start; } }
+        @media (max-width:1024px) {
+          .ft { padding:40px 32px 0; }
+          .ft-container { grid-template-columns:repeat(2,1fr); gap:28px; }
+        }
+        @media (max-width:600px) {
+          .ft { padding:32px 20px 0; }
+          .ft-container { grid-template-columns:1fr 1fr; gap:20px; }
+          .ft-bottom { justify-content:center; padding:14px 0; }
+          .ft-bottom-text { text-align:center; font-size:11px; }
+        }
+        @media (max-width:400px) {
+          .ft-container { grid-template-columns:1fr; }
+        }
       `}</style>
-
       <footer className="ft">
         <div className="ft-container">
-
-          {/* Col 1 — Brand */}
           <div>
             <div className="ft-brand-row">
               <div className="ft-logo-icon">
@@ -70,24 +78,18 @@ export default function Footer() {
               </a>
             </div>
           </div>
-
-          {/* Col 2 — Quick Links */}
           <div>
             <h4 className="ft-col-title">Quick Links</h4>
             {[{label:"Home",path:"/"},{label:"Departments",path:"/departments"},{label:"Packages",path:"/packages"},{label:"Book Appointment",path:"/book-appointment"},{label:"Contact",path:"/contact"},{label:"About Us",path:"/about"}].map(link => (
               <p key={link.label} className="ft-link" onClick={() => navigate(link.path)}>{link.label}</p>
             ))}
           </div>
-
-          {/* Col 3 — Departments */}
           <div>
             <h4 className="ft-col-title">Departments</h4>
             {departments.map(dept => (
               <p key={dept.id} className="ft-link" onClick={() => navigate(`/departments/${dept.id}`)}>{dept.name}</p>
             ))}
           </div>
-
-          {/* Col 4 — Contact */}
           <div>
             <h4 className="ft-col-title">Contact</h4>
             <div className="ft-contact-row">
@@ -103,7 +105,6 @@ export default function Footer() {
               <p className="ft-contact-text">Dubai, UAE</p>
             </div>
           </div>
-
         </div>
         <div className="ft-bottom">
           <p className="ft-bottom-text">© 2025 Smartcare Polyclinic. All rights reserved.</p>
