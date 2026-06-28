@@ -20,6 +20,8 @@ export default function Navbar() {
   useEffect(() => {
     setMobileMenuOpen(false);
     setMobileBookOpen(false);
+    setShowUserDropdown(false);
+    setShowBookDropdown(false);
   }, [location.pathname]);
 
   useEffect(() => {
@@ -27,17 +29,39 @@ export default function Navbar() {
       if (navRef.current && !navRef.current.contains(e.target)) {
         setShowUserDropdown(false);
         setShowBookDropdown(false);
-        setMobileMenuOpen(false);
-        setMobileBookOpen(false);
       }
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
+  // Mobile menu ke bahar click karne par band karo
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const handler = (e) => {
+      const menu = document.getElementById("nb-mobile-drawer");
+      const hamburger = document.getElementById("nb-hamburger-btn");
+      if (menu && !menu.contains(e.target) && hamburger && !hamburger.contains(e.target)) {
+        setMobileMenuOpen(false);
+        setMobileBookOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [mobileMenuOpen]);
+
   const handleLogout = async () => {
     await signOut(auth);
+    setMobileMenuOpen(false);
     navigate("/");
+  };
+
+  // Navigate + menu band
+  const goTo = (path) => {
+    setMobileMenuOpen(false);
+    setMobileBookOpen(false);
+    setShowUserDropdown(false);
+    navigate(path);
   };
 
   const isActive = (path) => location.pathname === path;
@@ -50,7 +74,6 @@ export default function Navbar() {
     { label: "Contact",     path: "/contact" },
   ];
 
-  // Hover delay handlers — dropdown stays 300ms after mouse leaves
   const handleBookEnter = () => {
     clearTimeout(bookTimerRef.current);
     setShowBookDropdown(true);
@@ -62,7 +85,7 @@ export default function Navbar() {
   return (
     <>
       <style>{`
-        .nb { display:flex; align-items:center; justify-content:space-between; padding:14px 50px; background:#fff; box-shadow:0 2px 10px rgba(0,0,0,0.08); position:sticky; top:0; z-index:100; }
+        .nb { display:flex; align-items:center; justify-content:space-between; padding:14px 50px; background:#fff; box-shadow:0 2px 10px rgba(0,0,0,0.08); position:sticky; top:0; z-index:1000; }
         .nb-logo { display:flex; align-items:center; gap:10px; cursor:pointer; flex-shrink:0; }
         .nb-logo-icon { width:40px; height:40px; border:2px solid #e05c5c; border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
         .nb-logo-text { font-weight:700; font-size:14px; font-family:'Poppins',sans-serif; }
@@ -88,41 +111,81 @@ export default function Navbar() {
         .nb-drop-item:hover { background:#f0f8ff; }
         .nb-drop-logout { color:#e05c5c !important; }
         .nb-drop-logout:hover { background:#fff5f5 !important; }
-        .nb-hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px; background:none; border:none; border-radius:6px; transition:background 0.2s; }
+
+        /* Hamburger */
+        .nb-hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:8px; background:none; border:none; border-radius:6px; transition:background 0.2s; z-index:1001; }
         .nb-hamburger:hover { background:#f5f5f5; }
         .nb-hamburger span { display:block; width:22px; height:2px; background:#444; border-radius:2px; transition:all 0.3s; }
         .nb-hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
         .nb-hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
         .nb-hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
-        .nb-mobile-menu { display:none; position:fixed; top:69px; left:0; right:0; background:#fff; box-shadow:0 8px 24px rgba(0,0,0,0.12); z-index:99; padding:8px 0 16px; max-height:calc(100vh - 69px); overflow-y:auto; }
-        .nb-mobile-menu.open { display:block; }
-        .nb-mobile-link { display:flex; align-items:center; gap:10px; padding:13px 24px; font-size:15px; color:#444; font-family:'Poppins',sans-serif; font-weight:500; cursor:pointer; border-bottom:1px solid #f5f5f5; transition:background 0.15s; }
-        .nb-mobile-link:hover { background:#f0f8ff; color:#2193b0; }
-        .nb-mobile-link-active { color:#2193b0; background:#f0f8ff; }
-        .nb-mobile-book-toggle { display:flex; justify-content:space-between; align-items:center; padding:13px 24px; font-size:15px; color:#444; font-family:'Poppins',sans-serif; font-weight:500; cursor:pointer; border-bottom:1px solid #f5f5f5; transition:background 0.15s; }
-        .nb-mobile-book-toggle:hover { background:#f0f8ff; }
-        .nb-mobile-book-toggle.active { color:#2193b0; }
-        .nb-chevron { font-size:12px; transition:transform 0.25s; color:#aaa; }
-        .nb-chevron.open { transform:rotate(180deg); }
-        .nb-mobile-book-sub { background:#fafafa; overflow:hidden; max-height:0; transition:max-height 0.3s ease; }
-        .nb-mobile-book-sub.open { max-height:200px; }
-        .nb-mobile-sub-item { display:flex; align-items:center; gap:10px; padding:11px 32px; font-size:14px; color:#555; font-family:'Poppins',sans-serif; cursor:pointer; transition:background 0.15s; border-bottom:1px solid #f5f5f5; }
-        .nb-mobile-sub-item:last-child { border-bottom:none; }
-        .nb-mobile-sub-item:hover { background:#e8f4fa; color:#2193b0; }
-        .nb-mobile-divider { height:1px; background:#eee; margin:8px 0; }
-        .nb-mobile-user-info { display:flex; align-items:center; gap:12px; padding:14px 24px; border-bottom:1px solid #f5f5f5; }
+
+        /* Overlay */
+        .nb-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:998; }
+        .nb-overlay.open { display:block; }
+
+        /* Mobile Drawer — slide from top */
+        .nb-mobile-menu {
+          position:fixed;
+          top:69px;
+          left:0;
+          right:0;
+          background:#fff;
+          box-shadow:0 8px 24px rgba(0,0,0,0.15);
+          z-index:999;
+          max-height:calc(100vh - 69px);
+          overflow-y:auto;
+          transform:translateY(-110%);
+          transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);
+          pointer-events:none;
+        }
+        .nb-mobile-menu.open {
+          transform:translateY(0);
+          pointer-events:all;
+        }
+
+        .nb-mobile-user-info { display:flex; align-items:center; gap:12px; padding:16px 24px; background:#f8fafc; border-bottom:2px solid #eef6fb; }
         .nb-mobile-user-name { font-size:15px; font-weight:600; color:#333; font-family:'Poppins',sans-serif; }
-        .nb-mobile-auth-btn { margin:12px 24px 0; display:block; padding:13px; background:#2193b0; color:#fff; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; text-align:center; transition:background 0.2s; width:calc(100% - 48px); }
-        .nb-mobile-auth-btn:hover { background:#1a7a9a; }
+
+        .nb-mobile-link { display:flex; align-items:center; gap:12px; padding:15px 24px; font-size:15px; color:#444; font-family:'Poppins',sans-serif; font-weight:500; cursor:pointer; border-bottom:1px solid #f0f0f0; transition:background 0.15s; -webkit-tap-highlight-color:transparent; }
+        .nb-mobile-link:active { background:#f0f8ff; }
+        .nb-mobile-link-active { color:#2193b0; background:#f0f8ff; border-left:3px solid #2193b0; padding-left:21px; }
+
+        .nb-mobile-book-toggle { display:flex; justify-content:space-between; align-items:center; padding:15px 24px; font-size:15px; color:#444; font-family:'Poppins',sans-serif; font-weight:500; cursor:pointer; border-bottom:1px solid #f0f0f0; transition:background 0.15s; -webkit-tap-highlight-color:transparent; user-select:none; }
+        .nb-mobile-book-toggle:active { background:#f0f8ff; }
+        .nb-mobile-book-toggle.active { color:#2193b0; }
+        .nb-chevron { font-size:13px; color:#aaa; transition:transform 0.25s; display:inline-block; }
+        .nb-chevron.open { transform:rotate(180deg); }
+
+        .nb-mobile-book-sub { background:#fafafa; overflow:hidden; max-height:0; transition:max-height 0.3s ease; border-bottom:1px solid #f0f0f0; }
+        .nb-mobile-book-sub.open { max-height:200px; }
+        .nb-mobile-sub-item { display:flex; align-items:center; gap:12px; padding:13px 36px; font-size:14px; color:#555; font-family:'Poppins',sans-serif; cursor:pointer; border-bottom:1px solid #f5f5f5; transition:background 0.15s; -webkit-tap-highlight-color:transparent; }
+        .nb-mobile-sub-item:last-child { border-bottom:none; }
+        .nb-mobile-sub-item:active { background:#e8f4fa; color:#2193b0; }
+
+        .nb-mobile-divider { height:8px; background:#f5f5f5; }
+
+        .nb-mobile-auth-btn { margin:14px 20px; display:block; padding:14px; background:#2193b0; color:#fff; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; text-align:center; transition:background 0.2s; width:calc(100% - 40px); -webkit-tap-highlight-color:transparent; }
         .nb-mobile-logout-btn { background:#fff0f0 !important; color:#e05c5c !important; }
-        .nb-mobile-logout-btn:hover { background:#fde0e0 !important; }
-        @media (max-width:900px) { .nb { padding:14px 24px; } .nb-links, .nb-login-btn, .nb-user-box { display:none; } .nb-hamburger { display:flex; } }
-        @media (max-width:600px) { .nb { padding:12px 16px; } }
+
+        @media (max-width:900px) {
+          .nb { padding:14px 24px; }
+          .nb-links, .nb-login-btn, .nb-user-box { display:none; }
+          .nb-hamburger { display:flex; }
+        }
+        @media (max-width:600px) {
+          .nb { padding:12px 16px; }
+          .nb-mobile-menu { top:65px; max-height:calc(100vh - 65px); }
+          .nb-overlay { top:0; }
+        }
       `}</style>
+
+      {/* Dark overlay */}
+      <div className={`nb-overlay ${mobileMenuOpen ? "open" : ""}`} onClick={() => { setMobileMenuOpen(false); setMobileBookOpen(false); }}/>
 
       <nav className="nb" ref={navRef}>
         {/* Logo */}
-        <div className="nb-logo" onClick={() => navigate("/")}>
+        <div className="nb-logo" onClick={() => goTo("/")}>
           <div className="nb-logo-icon">
             <span style={{ color:"#e05c5c", fontSize:"20px", fontWeight:"bold" }}>✚</span>
           </div>
@@ -143,7 +206,6 @@ export default function Navbar() {
             </span>
           ))}
 
-          {/* Book Appointment — hover with delay */}
           <div className="nb-book-wrap" onMouseEnter={handleBookEnter} onMouseLeave={handleBookLeave}>
             <span className={`nb-link ${isBookActive ? "nb-link-active" : ""}`}>
               Book Appointment ▾
@@ -199,53 +261,78 @@ export default function Navbar() {
         )}
 
         {/* Hamburger */}
-        <button className={`nb-hamburger ${mobileMenuOpen ? "open" : ""}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
+        <button
+          id="nb-hamburger-btn"
+          className={`nb-hamburger ${mobileMenuOpen ? "open" : ""}`}
+          onClick={() => { setMobileMenuOpen(prev => !prev); setMobileBookOpen(false); }}
+          aria-label="Toggle menu"
+        >
           <span/><span/><span/>
         </button>
       </nav>
 
-      {/* Mobile Drawer */}
-      <div className={`nb-mobile-menu ${mobileMenuOpen ? "open" : ""}`}>
+      {/* ── Mobile Drawer ── */}
+      <div id="nb-mobile-drawer" className={`nb-mobile-menu ${mobileMenuOpen ? "open" : ""}`}>
+
+        {/* User info */}
         {user && (
           <div className="nb-mobile-user-info">
             <div className="nb-avatar">{userData?.name?.charAt(0).toUpperCase() || "U"}</div>
             <span className="nb-mobile-user-name">{userData?.name || "User"}</span>
           </div>
         )}
+
+        {/* Nav links */}
         {navLinks.map(({ label, path }) => (
-          <div key={path} className={`nb-mobile-link ${isActive(path) ? "nb-mobile-link-active" : ""}`} onClick={() => navigate(path)}>
+          <div
+            key={path}
+            className={`nb-mobile-link ${isActive(path) ? "nb-mobile-link-active" : ""}`}
+            onClick={() => goTo(path)}
+          >
             {label}
           </div>
         ))}
-        <div className={`nb-mobile-book-toggle ${isBookActive ? "active" : ""}`} onClick={() => setMobileBookOpen(!mobileBookOpen)}>
+
+        {/* Book Appointment accordion */}
+        <div
+          className={`nb-mobile-book-toggle ${isBookActive ? "active" : ""}`}
+          onClick={() => setMobileBookOpen(prev => !prev)}
+        >
           <span>Book Appointment</span>
           <span className={`nb-chevron ${mobileBookOpen ? "open" : ""}`}>▾</span>
         </div>
         <div className={`nb-mobile-book-sub ${mobileBookOpen ? "open" : ""}`}>
-          <div className="nb-mobile-sub-item" onClick={() => navigate("/book-appointment")}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <div className="nb-mobile-sub-item" onClick={() => goTo("/book-appointment")}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
             Book Appointment
           </div>
-          <div className="nb-mobile-sub-item" onClick={() => navigate("/verify-number")}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <div className="nb-mobile-sub-item" onClick={() => goTo("/verify-number")}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
             Manage Appointments
           </div>
         </div>
+
         <div className="nb-mobile-divider"/>
+
+        {/* Auth links */}
         {user ? (
           <>
-            <div className="nb-mobile-link" onClick={() => navigate("/dashboard")}>
+            <div className="nb-mobile-link" onClick={() => goTo("/dashboard")}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
               Dashboard
             </div>
-            <div className="nb-mobile-link" onClick={() => navigate("/profile")}>
+            <div className="nb-mobile-link" onClick={() => goTo("/profile")}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2193b0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               Profile
             </div>
             <button className="nb-mobile-auth-btn nb-mobile-logout-btn" onClick={handleLogout}>Logout</button>
           </>
         ) : (
-          <button className="nb-mobile-auth-btn" onClick={() => navigate("/login")}>Login</button>
+          <button className="nb-mobile-auth-btn" onClick={() => goTo("/login")}>Login</button>
         )}
       </div>
     </>
